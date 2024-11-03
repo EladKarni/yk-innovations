@@ -11,7 +11,7 @@ type InputBoxProps = {
 const InputBox = ({ children, id, field, placeholder }: InputBoxProps) => {
   return (
     <label
-      className="input input-bordered flex items-center gap-2 focus-within:border-primary"
+      className="input input-bordered flex items-center gap-2 focus-within:border-primary text-black"
       htmlFor={id}
     >
       {children}

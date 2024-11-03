@@ -15,7 +15,7 @@ const config: Config = {
       "dim",
       {
         mytheme: {
-          primary: "#ea00ff",
+          primary: "#45351e",
           "primary-content": "#130016",
           secondary: "#00a2ff",
           "secondary-content": "#000a16",
@@ -24,7 +24,7 @@ const config: Config = {
           neutral: "#17080f",
           "neutral-content": "#cbc6c8",
           "base-100": "#efefef",
-          "base-200": "#1f200b",
+          "base-200": "#eaeaea",
           "base-300": "#191907",
           "base-content": "#cecfc9",
           info: "#007cf2",
@@ -35,9 +35,17 @@ const config: Config = {
           "warning-content": "#f0ded1",
           error: "#da0023",
           "error-content": "#ffd7d3",
+          backgroundImage: {
+            hero: "url('/hero.jpg')",
+          },
         },
       },
     ],
+  },
+  extend: {
+    backgroundImage: {
+      hero: "url('/hero.jpg')",
+    },
   },
   plugins: [require("daisyui")],
 };

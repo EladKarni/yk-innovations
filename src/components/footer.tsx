@@ -1,18 +1,19 @@
-import { Logo } from "@/ui/icons/logo";
+import Logo from "../../public/logo.png";
 import Link from "next/link";
+import Image from "next/image";
 
 const Footer = () => {
   return (
-    <footer className="bg-base-200 flex flex-col justify-center items-center py-8">
+    <footer className="bg-base-300 flex flex-col justify-center items-center py-8">
       <Link
         href="/"
-        className="text-white font-bold text-2xl"
+        className="text-white font-bold text-2xl max-w-[250px]"
         aria-label="Navigate to Home Page of BrontoSource.dev"
       >
-        <Logo fill="black" />
+        <Image src={Logo} alt="logo" className="invert" />
       </Link>
       <div className="text-center">
-        <p className="italic mt-4">&copy; 2024 Lorem ipsum</p>
+        <p className="italic mt-4">&copy; 2024 YK Innovations</p>
       </div>
     </footer>
   );
