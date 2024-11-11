@@ -38,8 +38,8 @@ const Contact = () => {
       <div>
         <TitleText>Start Your Projects Today</TitleText>
         <SubtitleText>
-          Lorem ipsum dolor sit amet consectetur adipisicing elit. Eum, officia
-          perferendis quisquam fugiat nostrum ipsam distinctio.
+          Contact us to get started on your project today! We will get back to
+          you as soon as possible.
         </SubtitleText>
       </div>
       <form
