@@ -6,6 +6,7 @@ import Navbar from "@/components/navbar";
 import NavLinks from "@/components/NavLinks";
 import "./globals.css";
 import Head from "next/head";
+import { cn } from "@/util/utils";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -37,7 +38,7 @@ export default function RootLayout({
         <meta name="apple-mobile-web-app-title" content="YK Innovations" />
         <link rel="manifest" href="/site.webmanifest" />
       </Head>
-      <body className={inter.className}>
+      <body className={cn(inter.className, "h-full")}>
         <Navbar>
           <NavLinks />
         </Navbar>
