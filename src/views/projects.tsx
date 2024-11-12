@@ -5,7 +5,7 @@ import TitleText from "@/ui/TitleText";
 import FloralinkLogo from "../../public/projects/FloraLink/FloraLink-Logo.png";
 import FloralinkPoster from "../../public/projects/FloraLink/FloraLinkPoster.png";
 
-import PawfectFeedLogo from "../../public/projects/PawfectFeed/pawfectfeed-logo.png";
+import PawfectFeedLogo from "../../public/projects/PawfectFeed/PawfectFeedLogo.png";
 import PawfectFeedPoster from "../../public/projects/PawfectFeed/PawfectFeedPoster.png";
 
 import StickerSeparatorLogo from "../../public/projects/SticketSeparator/StickerSeparator-Logo.png";
@@ -65,9 +65,6 @@ const Projects = () => {
           }}
         />
       </div>
-      {/* <Image src={PetFeederPoster} alt="PawfectFeed Poster" width={1100} />
-      <Image src={SMCPoster} alt="SMC Poster" width={1100} />
-      <Image src={StickerPoster} alt="Sticker Separator Poster" width={1100} /> */}
     </SectionContainer>
   );
 };
