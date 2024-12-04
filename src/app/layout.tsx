@@ -12,7 +12,7 @@ const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
   title: "YK Innovations",
-  description: "YK Innovations is a here to help you bring your ideas to life",
+  description: "YK Innovations is here to help you bring your ideas to life",
 };
 
 export default function RootLayout({
