@@ -23,7 +23,7 @@ const Accordion: FC<AccordionProps> = ({
         checked={selectedID === id}
       />
       <label
-        className="accordion-trigger text-lg pr-8 bg-base-300"
+        className="accordion-trigger text-3xl pr-8 bg-base-300"
         htmlFor={id}
       >
         {question}

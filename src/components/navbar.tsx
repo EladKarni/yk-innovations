@@ -5,8 +5,7 @@ import { useWindowScroll } from "react-use";
 import Link from "next/link";
 import MobileNavMenu from "./MobileMenu";
 import { useMounted } from "@/hooks/useMounter";
-import Logo from "../../public/logo.png";
-import Image from "next/image";
+import { Logo } from "@/ui/icons/logo";
 
 interface NavBarProps {
   children?: ReactNode;
@@ -24,9 +23,9 @@ const NavBar: FC<NavBarProps> = ({ children }) => {
     >
       <div className="h-full flex flex-col justify-center max-w-[1024px] lg:mx-auto mx-4">
         <div className="flex justify-between items-center relative">
-          <div className="max-w-[200px]">
+          <div className="max-w-[183px] lg:max-w-[163px]">
             <Link href="/">
-              <Image src={Logo} alt="logo" />
+              <Logo />
             </Link>
           </div>
           {children}

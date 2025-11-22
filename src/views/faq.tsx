@@ -4,7 +4,6 @@ import Accordion from "@/components/accordion";
 import { SetStateAction, useState } from "react";
 import SectionContainer from "@/ui/SectionContainer";
 import SubtitleText from "@/ui/SubtitleText";
-import TitleText from "@/ui/TitleText";
 
 interface FAQPropTypes {
   faqItems: faqType[];
@@ -15,11 +14,11 @@ const FAQSection = ({ faqItems }: FAQPropTypes) => {
   const onOptionChange = (e: { target: { value: SetStateAction<string> } }) => {
     setSelectedFAQ(e.target.value);
   };
-
+  console.log(faqItems);
   return (
     <SectionContainer
       sectionName="faq"
-      sectionClasses="flex flex-col align-middle"
+      sectionClasses="flex flex-col align-middle "
     >
       <SubtitleText>FAQ Example</SubtitleText>
       <fieldset className="accordion">
