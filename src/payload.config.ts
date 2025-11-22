@@ -16,11 +16,7 @@ import { Testimonials } from "./collections/Testimonials";
 // Import globals
 import { HeroSection } from "./globals/HeroSection";
 import { ProjectsSection } from "./globals/ProjectsSection";
-import { TeamSection } from "./globals/TeamSection";
-import { NeighborhoodSection } from "./globals/NeighborhoodSection";
 import { ContactSection } from "./globals/ContactSection";
-import { TeamPage } from "./globals/TeamPage";
-import { NeighborhoodPage } from "./globals/NeighborhoodPage";
 
 const filename = fileURLToPath(import.meta.url);
 const dirname = path.dirname(filename);
@@ -34,15 +30,7 @@ export default buildConfig({
     disable: false,
   },
   collections: [Users, Media, Projects, Services, Testimonials],
-  globals: [
-    HeroSection,
-    ProjectsSection,
-    TeamSection,
-    NeighborhoodSection,
-    ContactSection,
-    TeamPage,
-    NeighborhoodPage,
-  ],
+  globals: [HeroSection, ProjectsSection, ContactSection],
   editor: lexicalEditor({}),
   secret: process.env.PAYLOAD_SECRET || "",
   typescript: {
