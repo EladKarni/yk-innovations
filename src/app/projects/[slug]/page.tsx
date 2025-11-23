@@ -1,5 +1,4 @@
 import Image from "next/image";
-import Link from "next/link";
 import CTAButton from "@/ui/CTAButton";
 import SectionContainer from "@/ui/SectionContainer";
 import { notFound } from "next/navigation";
@@ -41,9 +40,9 @@ const projectsData: Record<string, any> = {
 };
 
 interface ProjectPageProps {
-  params: {
+  params: Promise<{
     slug: string;
-  };
+  }>;
 }
 
 export default async function ProjectPage({ params }: ProjectPageProps) {
