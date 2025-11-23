@@ -5,7 +5,7 @@ import { useWindowScroll } from "react-use";
 import Link from "next/link";
 import MobileNavMenu from "./MobileMenu";
 import { useMounted } from "@/hooks/useMounter";
-import { Logo } from "@/ui/icons/logo";
+import Image from "next/image";
 
 interface NavBarProps {
   children?: ReactNode;
@@ -25,7 +25,7 @@ const NavBar: FC<NavBarProps> = ({ children }) => {
         <div className="flex justify-between items-center relative">
           <div className="max-w-[183px] lg:max-w-[163px]">
             <Link href="/">
-              <Logo />
+              <Image src="/logo.png" alt="YK Innovations Logo" width={183} height={50} priority />
             </Link>
           </div>
           {children}

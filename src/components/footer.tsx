@@ -1,6 +1,6 @@
-import { Logo } from "@/ui/icons/logo";
 import Link from "next/link";
 import { navLinkList } from "@/constants/navLinks";
+import Image from "next/image";
 
 const Footer = () => {
   const currentYear = new Date().getFullYear();
@@ -16,7 +16,7 @@ const Footer = () => {
               className="inline-block"
               aria-label="Navigate to Home Page"
             >
-              <Logo />
+              <Image src="/logo.png" alt="YK Innovations Logo" width={183} height={50} priority />
             </Link>
             <p className="text-base-content/70 text-sm leading-relaxed">
               Expert mechanical engineering and rapid prototyping services. We transform product concepts into functional prototypes.

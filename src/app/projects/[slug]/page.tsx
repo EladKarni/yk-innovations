@@ -46,8 +46,9 @@ interface ProjectPageProps {
   };
 }
 
-export default function ProjectPage({ params }: ProjectPageProps) {
-  const project = projectsData[params.slug];
+export default async function ProjectPage({ params }: ProjectPageProps) {
+  const { slug } = await params
+  const project = projectsData[slug];
 
   if (!project) {
     notFound();
@@ -222,7 +223,8 @@ export default function ProjectPage({ params }: ProjectPageProps) {
 }
 
 export async function generateMetadata({ params }: ProjectPageProps) {
-  const project = projectsData[params.slug];
+  const { slug } = await params
+  const project = projectsData[slug];
 
   if (!project) {
     return {
