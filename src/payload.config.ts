@@ -34,7 +34,15 @@ export default buildConfig({
     disable: false,
   },
   collections: [Users, Media, Projects, Services, Testimonials],
-  globals: [HeroSection, ProjectsSection, ContactSection, AboutSection, ProcessSection, FooterSection, CompanyInfo],
+  globals: [
+    HeroSection,
+    ProjectsSection,
+    ContactSection,
+    AboutSection,
+    ProcessSection,
+    FooterSection,
+    CompanyInfo,
+  ],
   editor: lexicalEditor({}),
   secret: process.env.PAYLOAD_SECRET || "",
   typescript: {
@@ -42,7 +50,7 @@ export default buildConfig({
   },
   db: postgresAdapter({
     pool: {
-      connectionString: process.env.DATABASE_URL || "",
+      connectionString: process.env.NETLIFY_DATABASE_URL || "",
     },
   }),
   serverURL: process.env.NEXT_PUBLIC_SERVER_URL || "http://localhost:3000",
