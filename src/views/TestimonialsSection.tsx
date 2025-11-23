@@ -37,7 +37,7 @@ const TestimonialsSection: FC<TestimonialsSectionProps> = ({ data }) => {
 
             {/* Quote */}
             <p className="text-base-content/80 text-lg leading-relaxed mb-6 italic">
-              "{testimonial.quote}"
+              &ldquo;{testimonial.quote}&rdquo;
             </p>
 
             {/* Author Info */}

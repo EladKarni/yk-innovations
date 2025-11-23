@@ -124,7 +124,7 @@ const ContactSection: FC<ContactSectionProps> = ({
 
               {status === "success" && (
                 <div className="bg-success/10 border border-success text-success px-4 py-3 rounded-lg">
-                  Thank you! We'll get back to you soon.
+                  Thank you! We&apos;ll get back to you soon.
                 </div>
               )}
 
@@ -150,9 +150,9 @@ const ContactSection: FC<ContactSectionProps> = ({
           {/* Contact Info */}
           <div className="space-y-8">
             <div>
-              <h3 className="text-2xl font-bold text-base-content mb-6">Let's Connect</h3>
+              <h3 className="text-2xl font-bold text-base-content mb-6">Let&apos;s Connect</h3>
               <p className="text-base-content/70 leading-relaxed mb-6">
-                We're always excited to hear about new projects and opportunities. Whether you have a question or just want to say hi, feel free to reach out.
+                We&apos;re always excited to hear about new projects and opportunities. Whether you have a question or just want to say hi, feel free to reach out.
               </p>
             </div>
 

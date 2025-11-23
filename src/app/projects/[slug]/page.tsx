@@ -206,7 +206,7 @@ export default async function ProjectPage({ params }: ProjectPageProps) {
             Ready to Start Your Project?
           </h2>
           <p className="text-lg text-base-content/70 mb-8">
-            Let's discuss how we can help bring your vision to life with innovative solutions.
+            Let&apos;s discuss how we can help bring your vision to life with innovative solutions.
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
             <CTAButton href="/#contact" variant="primary" size="lg">

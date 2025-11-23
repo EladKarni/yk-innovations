@@ -53,24 +53,24 @@ const Footer = () => {
             <h3 className="font-semibold text-base-content mb-4">Services</h3>
             <ul className="space-y-2">
               <li>
-                <a href="/#solutions" className="text-base-content/70 hover:text-primary text-sm transition-colors duration-200">
+                <Link href="/#solutions" className="text-base-content/70 hover:text-primary text-sm transition-colors duration-200">
                   CAD Design & Engineering
-                </a>
+                </Link>
               </li>
               <li>
-                <a href="/#solutions" className="text-base-content/70 hover:text-primary text-sm transition-colors duration-200">
+                <Link href="/#solutions" className="text-base-content/70 hover:text-primary text-sm transition-colors duration-200">
                   Rapid Prototyping
-                </a>
+                </Link>
               </li>
               <li>
-                <a href="/#solutions" className="text-base-content/70 hover:text-primary text-sm transition-colors duration-200">
+                <Link href="/#solutions" className="text-base-content/70 hover:text-primary text-sm transition-colors duration-200">
                   Design for Manufacturing
-                </a>
+                </Link>
               </li>
               <li>
-                <a href="/#solutions" className="text-base-content/70 hover:text-primary text-sm transition-colors duration-200">
+                <Link href="/#solutions" className="text-base-content/70 hover:text-primary text-sm transition-colors duration-200">
                   Testing & Validation
-                </a>
+                </Link>
               </li>
             </ul>
           </div>
