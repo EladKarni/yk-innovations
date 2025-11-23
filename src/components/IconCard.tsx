@@ -1,8 +1,9 @@
 import { FC, ReactNode } from "react";
 import clsx from "clsx";
+import { getIconByName } from "./icons";
 
 interface IconCardProps {
-  icon: ReactNode;
+  icon: ReactNode | string;
   title: string;
   description: string;
   link?: {
@@ -21,6 +22,8 @@ const IconCard: FC<IconCardProps> = ({
   variant = "default",
   className,
 }) => {
+  // Convert string icon names to actual icon components
+  const iconElement = typeof icon === "string" ? getIconByName(icon) : icon;
   const cardClasses = clsx(
     "group p-6 md:p-8 rounded-lg transition-all duration-300 hover:-translate-y-1",
     {
@@ -37,7 +40,7 @@ const IconCard: FC<IconCardProps> = ({
     <>
       {/* Icon */}
       <div className="mb-4 text-primary transition-transform duration-300 group-hover:scale-110">
-        {icon}
+        {iconElement}
       </div>
 
       {/* Title */}

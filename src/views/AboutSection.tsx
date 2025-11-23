@@ -3,11 +3,11 @@ import Image from "next/image";
 import SectionContainer from "@/ui/SectionContainer";
 import CTAButton from "@/ui/CTAButton";
 
-interface AboutSectionProps {
-  title?: string;
+interface AboutSectionData {
+  title: string;
   subtitle?: string;
-  description?: string;
-  image?: string;
+  description: string;
+  image?: any;
   imageAlt?: string;
   stats?: Array<{
     value: string;
@@ -20,16 +20,27 @@ interface AboutSectionProps {
   imagePosition?: "left" | "right";
 }
 
-const AboutSection: FC<AboutSectionProps> = ({
-  title = "About Us",
-  subtitle = "Who We Are",
-  description = "We are a team of experienced mechanical engineers dedicated to helping businesses bring innovative products to market through expert prototyping and engineering support.",
-  image = "https://picsum.photos/800/600?random=2",
-  imageAlt = "About Us",
-  stats,
-  cta,
-  imagePosition = "right",
-}) => {
+interface AboutSectionProps {
+  data: AboutSectionData;
+}
+
+const AboutSection: FC<AboutSectionProps> = ({ data }) => {
+  const {
+    title,
+    subtitle,
+    description,
+    image,
+    imageAlt = "About Us",
+    stats,
+    cta,
+    imagePosition = "right",
+  } = data;
+
+  // Extract image URL if it's a Media object
+  const imageUrl =
+    typeof image === "object" && image !== null
+      ? (image as any).url || "https://picsum.photos/800/600?random=2"
+      : image || "https://picsum.photos/800/600?random=2";
   return (
     <SectionContainer sectionName="about" background="alt">
       <div className={`grid grid-cols-1 lg:grid-cols-2 gap-12 items-center ${imagePosition === "left" ? "lg:flex-row-reverse" : ""}`}>
@@ -73,7 +84,7 @@ const AboutSection: FC<AboutSectionProps> = ({
         <div className={imagePosition === "left" ? "lg:order-1" : ""}>
           <div className="relative h-[400px] md:h-[500px] rounded-lg overflow-hidden shadow-xl">
             <Image
-              src={image}
+              src={imageUrl}
               alt={imageAlt}
               fill
               className="object-cover"

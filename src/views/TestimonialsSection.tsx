@@ -1,5 +1,6 @@
 import { FC } from "react";
 import SectionContainer from "@/ui/SectionContainer";
+import SectionHeader from "@/components/SectionHeader";
 import Image from "next/image";
 
 interface Testimonial {
@@ -7,54 +8,20 @@ interface Testimonial {
   author: string;
   role: string;
   company: string;
-  avatar?: string;
+  avatar?: any;
 }
 
 interface TestimonialsSectionProps {
-  title?: string;
-  subtitle?: string;
-  testimonials?: Testimonial[];
+  data: Testimonial[];
 }
 
-const defaultTestimonials: Testimonial[] = [
-  {
-    quote: "YK Innovations brought our product concept to life with exceptional engineering expertise. Their prototypes were instrumental in securing our Series A funding, and their attention to manufacturability saved us significant time in tooling.",
-    author: "David Martinez",
-    role: "Founder & CEO",
-    company: "InnovateTech Manufacturing",
-  },
-  {
-    quote: "The attention to detail in their CAD models and DFM analysis saved us significant costs in tooling modifications. Their prototypes performed flawlessly in certification testing, helping us get FDA clearance faster than expected.",
-    author: "Jennifer Wang",
-    role: "VP of Product Development",
-    company: "MedDevice Solutions",
-  },
-  {
-    quote: "From initial concept to production-ready design, their mechanical engineering support was outstanding. The functional prototypes exceeded our quality expectations and helped us identify design improvements early in the process.",
-    author: "Robert Thompson",
-    role: "Director of Engineering",
-    company: "Apex Industrial Systems",
-  },
-];
-
-const TestimonialsSection: FC<TestimonialsSectionProps> = ({
-  title = "Client Testimonials",
-  subtitle = "What Our Clients Say",
-  testimonials = defaultTestimonials,
-}) => {
+const TestimonialsSection: FC<TestimonialsSectionProps> = ({ data }) => {
   return (
     <SectionContainer sectionName="testimonials" background="base">
-      <div className="text-center mb-16">
-        <p className="text-primary font-semibold text-sm md:text-base uppercase tracking-wider mb-2">
-          {subtitle}
-        </p>
-        <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold text-base-content">
-          {title}
-        </h2>
-      </div>
+      <SectionHeader title="Client Testimonials" subtitle="What Our Clients Say" />
 
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-        {testimonials.map((testimonial, index) => (
+        {data.map((testimonial, index) => (
           <article
             key={index}
             className="bg-white/60 dark:bg-base-200/60 backdrop-blur-sm border border-gray-300 dark:border-base-300 rounded-lg p-8 hover:shadow-xl transition-all duration-300 hover:-translate-y-1"
