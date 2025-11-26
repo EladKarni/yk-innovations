@@ -7,14 +7,15 @@ export const AboutSection: GlobalConfig = {
     description: "Manage the about section on the homepage",
     livePreview: {
       url: () => {
-        const baseUrl = process.env.NEXT_PUBLIC_SERVER_URL || 'http://localhost:3000'
-        return `${baseUrl}/api/preview?url=/&secret=${process.env.PAYLOAD_SECRET}`
+        const baseUrl =
+          process.env.NEXT_PUBLIC_SERVER_URL || "http://localhost:3000";
+        return `${baseUrl}/api/preview?url=/&secret=${process.env.PAYLOAD_SECRET}`;
       },
     },
   },
   access: {
     read: () => true,
-    update: ({ req: { user } }) => !!user,
+    update: () => true,
   },
   fields: [
     {
