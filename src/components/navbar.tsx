@@ -14,13 +14,17 @@ interface NavBarProps {
 const NavBar: FC<NavBarProps> = ({ children }) => {
   const { y } = useWindowScroll();
   const isMounted = useMounted();
-  const [theme, setTheme] = useState<string | null>(null);
+  const [theme, setTheme] = useState<string>("light");
 
   useEffect(() => {
-    setTheme(document.documentElement.getAttribute("data-theme"));
+    // Initial theme detection
+    const currentTheme = document.documentElement.getAttribute("data-theme") || "light";
+    setTheme(currentTheme);
 
+    // Watch for theme changes
     const observer = new MutationObserver(() => {
-      setTheme(document.documentElement.getAttribute("data-theme"));
+      const newTheme = document.documentElement.getAttribute("data-theme") || "light";
+      setTheme(newTheme);
     });
 
     observer.observe(document.documentElement, {
