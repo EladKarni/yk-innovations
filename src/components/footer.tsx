@@ -1,9 +1,27 @@
+"use client";
 import Link from "next/link";
 import { navLinkList } from "@/constants/navLinks";
 import Image from "next/image";
+import { useState, useEffect } from "react";
 
 const Footer = () => {
   const currentYear = new Date().getFullYear();
+  const [theme, setTheme] = useState<string | null>(null);
+
+  useEffect(() => {
+    setTheme(document.documentElement.getAttribute("data-theme"));
+
+    const observer = new MutationObserver(() => {
+      setTheme(document.documentElement.getAttribute("data-theme"));
+    });
+
+    observer.observe(document.documentElement, {
+      attributes: true,
+      attributeFilter: ["data-theme"],
+    });
+
+    return () => observer.disconnect();
+  }, []);
 
   return (
     <footer className="bg-base-200 border-t border-base-300">
@@ -16,7 +34,7 @@ const Footer = () => {
               className="inline-block"
               aria-label="Navigate to Home Page"
             >
-              <Image src="/logo.png" alt="YK Innovations Logo" width={183} height={50} priority />
+              <Image src="/logo.png" alt="YK Innovations Logo" className={theme === "dark" ? "invert" : ""} width={183} height={50} priority />
             </Link>
             <p className="text-base-content/70 text-sm leading-relaxed">
               Expert mechanical engineering and rapid prototyping services. We transform product concepts into functional prototypes.
