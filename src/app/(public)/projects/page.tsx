@@ -9,13 +9,16 @@ export const dynamic = 'force-dynamic';
 export const revalidate = 0;
 
 interface Project {
+  id: string;
   title: string;
   description: string;
-  image?: any;
+  heroImage?: any;
   slug: string;
-  technologies?: string[];
+  technologies?: Array<{ technology: string; id?: string }>;
   category?: string;
   featured?: boolean;
+  createdAt: string;
+  updatedAt: string;
 }
 
 export default async function ProjectsPage() {
@@ -31,7 +34,7 @@ export default async function ProjectsPage() {
       draft: isDraftMode,
       limit: 100, // Get all projects
     });
-    projects = result.docs as Project[];
+    projects = result.docs as unknown as Project[];
   } catch (error) {
     console.warn("Failed to fetch projects from CMS:", error);
   }
@@ -78,9 +81,12 @@ export default async function ProjectsPage() {
             projects.map((project, index) => {
               // Extract image URL if it's a Media object
               const imageUrl =
-                typeof project.image === "object" && project.image !== null
-                  ? (project.image as any).url || "https://picsum.photos/1200/800?random=" + index
-                  : project.image || "https://picsum.photos/1200/800?random=" + index;
+                typeof project.heroImage === "object" && project.heroImage !== null
+                  ? (project.heroImage as any).url || "https://picsum.photos/1200/800?random=" + index
+                  : project.heroImage || "https://picsum.photos/1200/800?random=" + index;
+
+              // Extract technology strings from array of objects
+              const techList = project.technologies?.map(t => t.technology) || [];
 
               return (
                 <ProjectCard
@@ -89,7 +95,7 @@ export default async function ProjectsPage() {
                   description={project.description}
                   image={imageUrl}
                   slug={project.slug}
-                  technologies={project.technologies}
+                  technologies={techList}
                   category={project.category}
                   glassMorphism={true}
                   featured={project.featured}

@@ -217,8 +217,30 @@ export default async function ProjectPage({ params }: ProjectPageProps) {
 }
 
 export async function generateMetadata({ params }: ProjectPageProps) {
-  const { slug } = await params
-  const project = projectsData[slug];
+  const { slug } = await params;
+  const { isEnabled: isDraftMode } = await draftMode();
+
+  let project: any = null;
+
+  try {
+    const payload = await getPayload({ config });
+    const result = await payload.find({
+      collection: "projects",
+      where: {
+        slug: {
+          equals: slug,
+        },
+      },
+      draft: isDraftMode,
+      limit: 1,
+    });
+
+    if (result.docs.length > 0) {
+      project = result.docs[0];
+    }
+  } catch (error) {
+    console.warn("Failed to fetch project metadata from CMS:", error);
+  }
 
   if (!project) {
     return {
