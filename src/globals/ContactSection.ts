@@ -8,12 +8,13 @@ export const ContactSection: GlobalConfig = {
     livePreview: {
       url: () => {
         const baseUrl = process.env.NEXT_PUBLIC_SERVER_URL || 'http://localhost:3000'
-        return `${baseUrl}/api/preview?global=contact-section`
+        return `${baseUrl}/api/preview?url=/&secret=${process.env.PAYLOAD_SECRET}`
       },
     },
   },
   access: {
     read: () => true,
+    update: ({ req: { user } }) => !!user,
   },
   fields: [
     {

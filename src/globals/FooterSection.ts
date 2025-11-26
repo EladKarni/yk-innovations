@@ -5,9 +5,16 @@ export const FooterSection: GlobalConfig = {
   label: "Footer Section",
   admin: {
     description: "Manage footer content, links, and services",
+    livePreview: {
+      url: () => {
+        const baseUrl = process.env.NEXT_PUBLIC_SERVER_URL || 'http://localhost:3000'
+        return `${baseUrl}/api/preview?url=/&secret=${process.env.PAYLOAD_SECRET}`
+      },
+    },
   },
   access: {
     read: () => true,
+    update: ({ req: { user } }) => !!user,
   },
   fields: [
     {

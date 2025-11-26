@@ -7,6 +7,7 @@ import TestimonialsSection from "@/views/TestimonialsSection";
 import ContactSection from "@/views/ContactSection";
 import { getPayload } from "payload";
 import config from "@/payload.config";
+import { draftMode } from "next/headers";
 import {
   fallbackHeroData,
   fallbackAboutData,
@@ -68,6 +69,11 @@ interface Testimonial {
   avatar?: any;
 }
 
+// Disable all caching for real-time CMS updates
+export const dynamic = 'force-dynamic';
+export const revalidate = 0;
+export const fetchCache = 'force-no-store';
+
 export default async function Home() {
   // Try to fetch from CMS, fall back to static data if database is unavailable
   let heroData: any;
@@ -77,24 +83,29 @@ export default async function Home() {
   let projects: any;
   let testimonials: any;
 
+  // Check if we're in draft mode for live preview
+  const { isEnabled: isDraftMode } = await draftMode();
+
   try {
     const payload = await getPayload({ config });
 
     // Fetch all CMS data in parallel for better performance
     [heroData, aboutData, processData, services, projects, testimonials] = await Promise.all([
-      payload.findGlobal({ slug: "hero-section" }),
-      payload.findGlobal({ slug: "about-section" }),
-      payload.findGlobal({ slug: "process-section" }),
-      payload.find({ collection: "services" }),
+      payload.findGlobal({ slug: "hero-section", draft: isDraftMode }),
+      payload.findGlobal({ slug: "about-section", draft: isDraftMode }),
+      payload.findGlobal({ slug: "process-section", draft: isDraftMode }),
+      payload.find({ collection: "services", draft: isDraftMode }),
       payload.find({
         collection: "projects",
         where: { featured: { equals: true } },
         limit: 6,
+        draft: isDraftMode,
       }),
       payload.find({
         collection: "testimonials",
         where: { featured: { equals: true } },
         limit: 6,
+        draft: isDraftMode,
       }),
     ]);
   } catch (error) {

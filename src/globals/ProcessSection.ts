@@ -5,9 +5,16 @@ export const ProcessSection: GlobalConfig = {
   label: "Process Section",
   admin: {
     description: "Manage the process/workflow section on the homepage",
+    livePreview: {
+      url: () => {
+        const baseUrl = process.env.NEXT_PUBLIC_SERVER_URL || 'http://localhost:3000'
+        return `${baseUrl}/api/preview?url=/&secret=${process.env.PAYLOAD_SECRET}`
+      },
+    },
   },
   access: {
     read: () => true,
+    update: ({ req: { user } }) => !!user,
   },
   fields: [
     {
