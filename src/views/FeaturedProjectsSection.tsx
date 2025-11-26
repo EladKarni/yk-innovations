@@ -23,6 +23,7 @@ const FeaturedProjectsSection: FC<FeaturedProjectsSectionProps> = ({
   data,
   showViewAll = true,
 }) => {
+  console.log(data)
   return (
     <SectionContainer sectionName="projects" background="alt">
       <SectionHeader title="Featured Projects" subtitle="Our Work" />

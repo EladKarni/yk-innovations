@@ -1,5 +1,5 @@
 "use client";
-import { FC, ReactNode } from "react";
+import { FC, ReactNode, useState, useEffect } from "react";
 import clsx from "clsx";
 import { useWindowScroll } from "react-use";
 import Link from "next/link";
@@ -14,6 +14,23 @@ interface NavBarProps {
 const NavBar: FC<NavBarProps> = ({ children }) => {
   const { y } = useWindowScroll();
   const isMounted = useMounted();
+  const [theme, setTheme] = useState<string | null>(null);
+
+  useEffect(() => {
+    setTheme(document.documentElement.getAttribute("data-theme"));
+
+    const observer = new MutationObserver(() => {
+      setTheme(document.documentElement.getAttribute("data-theme"));
+    });
+
+    observer.observe(document.documentElement, {
+      attributes: true,
+      attributeFilter: ["data-theme"],
+    });
+
+    return () => observer.disconnect();
+  }, []);
+
   return (
     <header
       className={clsx(
@@ -25,7 +42,7 @@ const NavBar: FC<NavBarProps> = ({ children }) => {
         <div className="flex justify-between items-center relative">
           <div className="max-w-[183px] lg:max-w-[163px]">
             <Link href="/">
-              <Image src="/logo.png" alt="YK Innovations Logo" width={183} height={50} priority />
+              <Image src="/logo.png" alt="YK Innovations Logo" className={theme === "dark" ? "invert" : ""} width={183} height={50} priority />
             </Link>
           </div>
           {children}

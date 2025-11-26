@@ -144,7 +144,7 @@ const Footer = () => {
         {/* Bottom Bar */}
         <div className="border-t border-base-300 mt-12 pt-8 flex flex-col md:flex-row justify-between items-center gap-4">
           <p className="text-base-content/60 text-sm">
-            &copy; {currentYear} YK Innovations. All rights reserved.
+            &copy; {currentYear} Y.K. Innovations. All rights reserved.
           </p>
           <div className="flex gap-6 text-sm">
             <Link href="/privacy" className="text-base-content/60 hover:text-primary transition-colors duration-200">

@@ -113,7 +113,7 @@ export default async function Home() {
     typeof heroData.backgroundImage === "object" && heroData.backgroundImage !== null
       ? (heroData.backgroundImage as any).url
       : heroData.backgroundImage;
-
+  console.log({ projects })
   return (
     <main className="min-h-screen">
       {/* Hero Section - Data from CMS */}
@@ -133,16 +133,16 @@ export default async function Home() {
       <AboutSection data={aboutData as AboutSectionData} />
 
       {/* Featured Projects Section - Data from CMS */}
-      <FeaturedProjectsSection data={projects.docs as unknown as Project[]} />
+      <FeaturedProjectsSection data={projects.docs as Project[]} />
 
       {/* Services Section - Data from CMS */}
-      <ServicesSection data={services.docs as unknown as Service[]} />
+      <ServicesSection data={services.docs as Service[]} />
 
       {/* Process Section - Data from CMS */}
       <ProcessSection data={processData as ProcessSectionData} />
 
       {/* Testimonials Section - Data from CMS */}
-      <TestimonialsSection data={testimonials.docs as unknown as Testimonial[]} />
+      <TestimonialsSection data={testimonials.docs as Testimonial[]} />
 
       {/* Contact Section */}
       <ContactSection />
