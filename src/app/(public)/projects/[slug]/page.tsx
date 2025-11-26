@@ -6,6 +6,28 @@ import { getPayload } from "payload";
 import config from "@/payload.config";
 import { draftMode } from "next/headers";
 
+// Helper to convert rich text to plain text
+function richTextToPlainText(richText: any): string {
+  if (!richText) return '';
+  if (typeof richText === 'string') return richText;
+
+  // Handle Lexical format
+  if (richText.root && richText.root.children) {
+    return richText.root.children
+      .map((node: any) => {
+        if (node.children) {
+          return node.children
+            .map((child: any) => child.text || '')
+            .join('');
+        }
+        return node.text || '';
+      })
+      .join('\n');
+  }
+
+  return '';
+}
+
 // Disable all caching for real-time CMS updates
 export const dynamic = 'force-dynamic';
 export const revalidate = 0;
@@ -48,13 +70,40 @@ export default async function ProjectPage({ params }: ProjectPageProps) {
     notFound();
   }
 
+  // Extract hero image URL from Media object
+  const heroImageUrl =
+    typeof project.heroImage === "object" && project.heroImage !== null
+      ? (project.heroImage as any).url || "https://picsum.photos/1200/800?random=1"
+      : project.heroImage || "https://picsum.photos/1200/800?random=1";
+
+  // Extract gallery image URLs from Media objects
+  const galleryUrls = project.gallery?.map((item: any) => {
+    if (typeof item.image === "object" && item.image !== null) {
+      return (item.image as any).url || "";
+    }
+    return item.image || "";
+  }).filter(Boolean) || [];
+
+  // Extract feature strings from objects
+  const featuresList = project.features?.map((item: any) =>
+    typeof item === "object" ? item.feature : item
+  ).filter(Boolean) || [];
+
+  // Extract technology strings from objects
+  const techList = project.technologies?.map((item: any) =>
+    typeof item === "object" ? item.technology : item
+  ).filter(Boolean) || [];
+
+  // Convert fullDescription from richText to plain text
+  const fullDescriptionText = richTextToPlainText(project.fullDescription);
+
   return (
     <main className="min-h-screen pt-24">
       {/* Hero Section */}
       <section className="relative h-[400px] md:h-[500px] bg-base-200">
         <div className="relative w-full h-full">
           <Image
-            src={project.image}
+            src={heroImageUrl}
             alt={project.title}
             fill
             className="object-cover"
@@ -63,9 +112,6 @@ export default async function ProjectPage({ params }: ProjectPageProps) {
           <div className="absolute inset-0 bg-black/50" />
           <div className="absolute inset-0 flex items-center justify-center">
             <div className="text-center text-white max-w-4xl px-4">
-              <div className="inline-block bg-primary text-primary-content px-4 py-2 rounded-full text-sm font-semibold uppercase tracking-wider mb-4">
-                {project.category}
-              </div>
               <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold mb-4">
                 {project.title}
               </h1>
@@ -85,16 +131,16 @@ export default async function ProjectPage({ params }: ProjectPageProps) {
             {/* Overview */}
             <div>
               <h2 className="text-3xl font-bold text-base-content mb-4">Overview</h2>
-              <p className="text-lg text-base-content/80 leading-relaxed">
-                {project.longDescription}
-              </p>
+              <div className="text-lg text-base-content/80 leading-relaxed whitespace-pre-wrap">
+                {fullDescriptionText}
+              </div>
             </div>
 
             {/* Features */}
             <div>
               <h2 className="text-3xl font-bold text-base-content mb-4">Key Features</h2>
               <ul className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                {project.features.map((feature: string, index: number) => (
+                {featuresList.map((feature: string, index: number) => (
                   <li key={index} className="flex items-start gap-3">
                     <svg className="w-6 h-6 text-primary flex-shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
@@ -109,7 +155,7 @@ export default async function ProjectPage({ params }: ProjectPageProps) {
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
               <div className="bg-base-200 rounded-lg p-6">
                 <h3 className="text-xl font-bold text-base-content mb-3">Challenge</h3>
-                <p className="text-base-content/80">{project.challenges}</p>
+                <p className="text-base-content/80">{project.challenge}</p>
               </div>
               <div className="bg-base-200 rounded-lg p-6">
                 <h3 className="text-xl font-bold text-base-content mb-3">Solution</h3>
@@ -150,7 +196,7 @@ export default async function ProjectPage({ params }: ProjectPageProps) {
               <div>
                 <div className="text-sm font-semibold text-base-content/60 mb-2">Technologies</div>
                 <div className="flex flex-wrap gap-2">
-                  {project.technologies.map((tech: string, index: number) => (
+                  {techList.map((tech: string, index: number) => (
                     <span
                       key={index}
                       className="text-xs px-3 py-1 rounded-full bg-base-100 text-base-content"
@@ -175,14 +221,14 @@ export default async function ProjectPage({ params }: ProjectPageProps) {
       </SectionContainer>
 
       {/* Gallery Section (if images exist) */}
-      {project.gallery && project.gallery.length > 0 && (
+      {galleryUrls.length > 0 && (
         <SectionContainer sectionName="project-gallery" background="alt">
           <h2 className="text-3xl font-bold text-base-content mb-8 text-center">Project Gallery</h2>
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-            {project.gallery.map((image: string, index: number) => (
+            {galleryUrls.map((imageUrl: string, index: number) => (
               <div key={index} className="relative h-64 rounded-lg overflow-hidden group">
                 <Image
-                  src={image}
+                  src={imageUrl}
                   alt={`${project.title} gallery image ${index + 1}`}
                   fill
                   className="object-cover transition-transform duration-300 group-hover:scale-110"

@@ -8,6 +8,7 @@ interface Project {
   title: string;
   description: string;
   image?: any;
+  heroImage?: any;
   slug: string;
   technologies?: string[];
   category?: string;
@@ -31,11 +32,12 @@ const FeaturedProjectsSection: FC<FeaturedProjectsSectionProps> = ({
 
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mb-12">
         {data.map((project, index) => {
-          // Extract image URL if it's a Media object
+          // Extract image URL from heroImage or image field (Media object)
+          const imageSource = project.heroImage || project.image;
           const imageUrl =
-            typeof project.image === "object" && project.image !== null
-              ? (project.image as any).url || "https://picsum.photos/1200/800?random=" + index
-              : project.image || "https://picsum.photos/1200/800?random=" + index;
+            typeof imageSource === "object" && imageSource !== null
+              ? (imageSource as any).url || "https://picsum.photos/1200/800?random=" + index
+              : imageSource || "https://picsum.photos/1200/800?random=" + index;
 
           return (
             <ProjectCard
