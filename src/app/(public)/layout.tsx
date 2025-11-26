@@ -1,5 +1,8 @@
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
+import { getPayload } from "payload";
+import config from "@/payload.config";
+import { draftMode } from "next/headers";
 
 import Footer from "@/components/footer";
 import Navbar from "@/components/navbar";
@@ -27,11 +30,31 @@ export const metadata: Metadata = {
   },
 };
 
-export default function PublicLayout({
+// Disable all caching for real-time CMS updates
+export const dynamic = 'force-dynamic';
+export const revalidate = 0;
+
+export default async function PublicLayout({
   children,
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+  // Fetch footer and company info globally
+  let footerData: any;
+  let companyInfo: any;
+
+  const { isEnabled: isDraftMode } = await draftMode();
+
+  try {
+    const payload = await getPayload({ config });
+    [footerData, companyInfo] = await Promise.all([
+      payload.findGlobal({ slug: "footer-section", draft: isDraftMode }),
+      payload.findGlobal({ slug: "company-info", draft: isDraftMode }),
+    ]);
+  } catch (error) {
+    console.warn("Failed to fetch footer data from CMS:", error);
+  }
+
   return (
     <html lang="en" data-theme="mytheme" className="scroll-smooth">
       <body className={cn(inter.className, "h-full")}>
@@ -39,7 +62,7 @@ export default function PublicLayout({
           <NavLinks />
         </Navbar>
         {children}
-        <Footer />
+        <Footer footerData={footerData} companyInfo={companyInfo} />
       </body>
     </html>
   );

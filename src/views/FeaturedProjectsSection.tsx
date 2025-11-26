@@ -17,16 +17,17 @@ interface Project {
 interface FeaturedProjectsSectionProps {
   data: Project[];
   showViewAll?: boolean;
+  title?: string;
 }
 
 const FeaturedProjectsSection: FC<FeaturedProjectsSectionProps> = ({
   data,
   showViewAll = true,
+  title,
 }) => {
-  console.log(data)
   return (
     <SectionContainer sectionName="projects" background="alt">
-      <SectionHeader title="Featured Projects" subtitle="Our Work" />
+      <SectionHeader title={title || "Featured Projects"} subtitle="Our Work" />
 
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mb-12">
         {data.map((project, index) => {

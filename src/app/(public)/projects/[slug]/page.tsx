@@ -2,42 +2,13 @@ import Image from "next/image";
 import CTAButton from "@/ui/CTAButton";
 import SectionContainer from "@/ui/SectionContainer";
 import { notFound } from "next/navigation";
+import { getPayload } from "payload";
+import config from "@/payload.config";
+import { draftMode } from "next/headers";
 
-// Mock data - will be replaced with Payload CMS data
-const projectsData: Record<string, any> = {
-  "smart-kitchen-appliance": {
-    title: "Smart Kitchen Appliance",
-    description: "A compact, IoT-enabled kitchen appliance designed for modern consumers.",
-    longDescription: "We partnered with a consumer products startup to develop a revolutionary smart kitchen appliance from concept to production-ready prototype. The project involved complete mechanical design in SolidWorks, extensive FEA analysis for structural integrity, thermal management solutions, and multi-material prototyping. The final design balanced aesthetics with functionality while meeting stringent safety and performance requirements.",
-    image: "https://picsum.photos/1920/1080?random=3",
-    category: "Consumer Product",
-    client: "SmartHome Innovations Inc.",
-    duration: "4 months",
-    year: "2024",
-    technologies: ["SolidWorks", "FEA Analysis", "3D Printing (FDM/SLA)", "CNC Machining", "IoT Integration"],
-    features: [
-      "Compact, space-efficient design",
-      "Thermal management system",
-      "Food-safe materials certification",
-      "Modular component design for easy assembly",
-      "Integrated sensor housing",
-      "DFM-optimized for injection molding",
-    ],
-    challenges: "Balancing compact size requirements with thermal management needs while ensuring the design was cost-effective for mass production.",
-    solution: "Implemented advanced CFD analysis to optimize airflow, selected high-performance polymers, and designed a modular assembly system that reduced manufacturing costs by 30%.",
-    results: [
-      { metric: "Thermal Performance", value: "15°C improvement" },
-      { metric: "Prototype Iterations", value: "3 functional prototypes" },
-      { metric: "Production Cost", value: "-30% reduction" },
-    ],
-    gallery: [
-      "https://picsum.photos/1200/800?random=9",
-      "https://picsum.photos/1200/800?random=10",
-      "https://picsum.photos/1200/800?random=11",
-    ],
-  },
-  // Add other projects as needed
-};
+// Disable all caching for real-time CMS updates
+export const dynamic = 'force-dynamic';
+export const revalidate = 0;
 
 interface ProjectPageProps {
   params: Promise<{
@@ -46,8 +17,32 @@ interface ProjectPageProps {
 }
 
 export default async function ProjectPage({ params }: ProjectPageProps) {
-  const { slug } = await params
-  const project = projectsData[slug];
+  const { slug } = await params;
+
+  // Fetch project from CMS
+  const { isEnabled: isDraftMode } = await draftMode();
+
+  let project: any = null;
+
+  try {
+    const payload = await getPayload({ config });
+    const result = await payload.find({
+      collection: "projects",
+      where: {
+        slug: {
+          equals: slug,
+        },
+      },
+      draft: isDraftMode,
+      limit: 1,
+    });
+
+    if (result.docs.length > 0) {
+      project = result.docs[0];
+    }
+  } catch (error) {
+    console.warn("Failed to fetch project from CMS:", error);
+  }
 
   if (!project) {
     notFound();

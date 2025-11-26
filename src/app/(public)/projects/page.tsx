@@ -1,60 +1,44 @@
 import ProjectCard from "@/components/ProjectCard";
 import SectionContainer from "@/ui/SectionContainer";
+import { getPayload } from "payload";
+import config from "@/payload.config";
+import { draftMode } from "next/headers";
 
-// This will be replaced with actual data from Payload CMS
-const projects = [
-  {
-    title: "Smart Kitchen Appliance",
-    description: "Engineered and prototyped a next-generation kitchen appliance with integrated IoT sensors. Delivered functional prototypes for user testing and investor demonstrations with complete documentation.",
-    image: "https://picsum.photos/1200/800?random=3",
-    slug: "smart-kitchen-appliance",
-    technologies: ["SolidWorks", "3D Printing", "ABS", "Electronics Integration"],
-    category: "Consumer Product",
-    featured: true,
-  },
-  {
-    title: "Industrial Valve Assembly",
-    description: "Designed custom valve assembly for high-pressure applications. Provided comprehensive CAD models, FEA analysis, and precision CNC-machined prototypes for certification testing.",
-    image: "https://picsum.photos/1200/800?random=4",
-    slug: "industrial-valve",
-    technologies: ["Fusion 360", "FEA Analysis", "Stainless Steel", "CNC Machining"],
-    category: "Industrial",
-  },
-  {
-    title: "Medical Device Enclosure",
-    description: "Created biocompatible enclosure for portable medical device. Designed for injection molding with emphasis on ergonomics, sterilization requirements, and regulatory compliance.",
-    image: "https://picsum.photos/1200/800?random=5",
-    slug: "medical-device-enclosure",
-    technologies: ["AutoCAD", "SLA Printing", "Medical-Grade Polymer", "DFM"],
-    category: "Medical",
-  },
-  {
-    title: "Automotive Sensor Housing",
-    description: "Developed robust sensor housing for automotive application with thermal and vibration requirements. Prototyped using SLS nylon and validated through environmental testing.",
-    image: "https://picsum.photos/1200/800?random=6",
-    slug: "automotive-sensor-housing",
-    technologies: ["CATIA", "SLS Printing", "PA12 Nylon", "Environmental Testing"],
-    category: "Automotive",
-  },
-  {
-    title: "Robotic Gripper Mechanism",
-    description: "Designed precision gripper mechanism for collaborative robot. Integrated pneumatic actuation with custom jaw design optimized for specific product handling.",
-    image: "https://picsum.photos/1200/800?random=7",
-    slug: "robotic-gripper",
-    technologies: ["SolidWorks", "Motion Simulation", "Aluminum", "Pneumatics"],
-    category: "Robotics",
-  },
-  {
-    title: "Consumer Electronics Case",
-    description: "Engineered sleek protective case for consumer electronics with integrated cooling features. Tooled prototypes demonstrated manufacturability and thermal performance.",
-    image: "https://picsum.photos/1200/800?random=8",
-    slug: "electronics-case",
-    technologies: ["Rhino 3D", "FDM Printing", "Polycarbonate", "Thermal Analysis"],
-    category: "Consumer Product",
-  },
-];
+// Disable all caching for real-time CMS updates
+export const dynamic = 'force-dynamic';
+export const revalidate = 0;
 
-export default function ProjectsPage() {
+interface Project {
+  title: string;
+  description: string;
+  image?: any;
+  slug: string;
+  technologies?: string[];
+  category?: string;
+  featured?: boolean;
+}
+
+export default async function ProjectsPage() {
+  // Fetch projects from CMS
+  let projects: Project[] = [];
+
+  const { isEnabled: isDraftMode } = await draftMode();
+
+  try {
+    const payload = await getPayload({ config });
+    const result = await payload.find({
+      collection: "projects",
+      draft: isDraftMode,
+      limit: 100, // Get all projects
+    });
+    projects = result.docs as Project[];
+  } catch (error) {
+    console.warn("Failed to fetch projects from CMS:", error);
+  }
+
+  // Extract unique categories from projects
+  const categories = ["All", ...Array.from(new Set(projects.map(p => p.category).filter(Boolean)))];
+
   return (
     <main className="min-h-screen pt-24">
       <SectionContainer sectionName="all-projects" background="base" noPadding={false}>
@@ -70,37 +54,53 @@ export default function ProjectsPage() {
           </p>
         </div>
 
-        {/* Filter/Category Section - Placeholder for future enhancement */}
-        <div className="flex flex-wrap justify-center gap-4 mb-12">
-          {["All", "Consumer Product", "Industrial", "Medical", "Automotive", "Robotics"].map((category) => (
-            <button
-              key={category}
-              className={`px-6 py-2 rounded-full font-medium transition-all duration-200 ${
-                category === "All"
-                  ? "bg-primary text-primary-content"
-                  : "bg-base-200 text-base-content hover:bg-base-300"
-              }`}
-            >
-              {category}
-            </button>
-          ))}
-        </div>
+        {/* Filter/Category Section */}
+        {categories.length > 1 && (
+          <div className="flex flex-wrap justify-center gap-4 mb-12">
+            {categories.map((category) => (
+              <div
+                key={category}
+                className={`px-6 py-2 rounded-full font-medium ${
+                  category === "All"
+                    ? "bg-primary text-primary-content"
+                    : "bg-base-200 text-base-content"
+                }`}
+              >
+                {category}
+              </div>
+            ))}
+          </div>
+        )}
 
         {/* Projects Grid */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-          {projects.map((project, index) => (
-            <ProjectCard
-              key={index}
-              title={project.title}
-              description={project.description}
-              image={project.image}
-              slug={project.slug}
-              technologies={project.technologies}
-              category={project.category}
-              glassMorphism={true}
-              featured={project.featured}
-            />
-          ))}
+          {projects.length > 0 ? (
+            projects.map((project, index) => {
+              // Extract image URL if it's a Media object
+              const imageUrl =
+                typeof project.image === "object" && project.image !== null
+                  ? (project.image as any).url || "https://picsum.photos/1200/800?random=" + index
+                  : project.image || "https://picsum.photos/1200/800?random=" + index;
+
+              return (
+                <ProjectCard
+                  key={project.slug || index}
+                  title={project.title}
+                  description={project.description}
+                  image={imageUrl}
+                  slug={project.slug}
+                  technologies={project.technologies}
+                  category={project.category}
+                  glassMorphism={true}
+                  featured={project.featured}
+                />
+              );
+            })
+          ) : (
+            <div className="col-span-full text-center py-12 text-base-content/70">
+              <p className="text-xl">No projects found. Add projects in the CMS to display them here.</p>
+            </div>
+          )}
         </div>
       </SectionContainer>
     </main>

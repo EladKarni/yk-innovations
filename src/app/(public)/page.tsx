@@ -79,6 +79,9 @@ export default async function Home() {
   let heroData: any;
   let aboutData: any;
   let processData: any;
+  let projectsSection: any;
+  let contactSection: any;
+  let companyInfo: any;
   let services: any;
   let projects: any;
   let testimonials: any;
@@ -90,10 +93,13 @@ export default async function Home() {
     const payload = await getPayload({ config });
 
     // Fetch all CMS data in parallel for better performance
-    [heroData, aboutData, processData, services, projects, testimonials] = await Promise.all([
+    [heroData, aboutData, processData, projectsSection, contactSection, companyInfo, services, projects, testimonials] = await Promise.all([
       payload.findGlobal({ slug: "hero-section", draft: isDraftMode }),
       payload.findGlobal({ slug: "about-section", draft: isDraftMode }),
       payload.findGlobal({ slug: "process-section", draft: isDraftMode }),
+      payload.findGlobal({ slug: "projects-section", draft: isDraftMode }),
+      payload.findGlobal({ slug: "contact-section", draft: isDraftMode }),
+      payload.findGlobal({ slug: "company-info", draft: isDraftMode }),
       payload.find({ collection: "services", draft: isDraftMode }),
       payload.find({
         collection: "projects",
@@ -124,7 +130,7 @@ export default async function Home() {
     typeof heroData.backgroundImage === "object" && heroData.backgroundImage !== null
       ? (heroData.backgroundImage as any).url
       : heroData.backgroundImage;
-  console.log({ projects })
+
   return (
     <main className="min-h-screen">
       {/* Hero Section - Data from CMS */}
@@ -144,7 +150,10 @@ export default async function Home() {
       <AboutSection data={aboutData as AboutSectionData} />
 
       {/* Featured Projects Section - Data from CMS */}
-      <FeaturedProjectsSection data={projects.docs as Project[]} />
+      <FeaturedProjectsSection
+        data={projects.docs as Project[]}
+        title={projectsSection?.title}
+      />
 
       {/* Services Section - Data from CMS */}
       <ServicesSection data={services.docs as Service[]} />
@@ -155,8 +164,11 @@ export default async function Home() {
       {/* Testimonials Section - Data from CMS */}
       <TestimonialsSection data={testimonials.docs as Testimonial[]} />
 
-      {/* Contact Section */}
-      <ContactSection />
+      {/* Contact Section - Data from CMS */}
+      <ContactSection
+        contactData={contactSection}
+        companyInfo={companyInfo}
+      />
     </main>
   );
 }
