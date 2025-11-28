@@ -1,6 +1,7 @@
 import { FC, ReactNode } from "react";
 import CTAButton from "@/ui/CTAButton";
 import clsx from "clsx";
+import Image from "next/image";
 
 interface HeroProps {
   title: string;
@@ -39,9 +40,14 @@ const Hero: FC<HeroProps> = ({
     <section className={clsx("relative min-h-[600px] md:min-h-[700px] lg:min-h-[800px] flex items-center justify-center overflow-hidden", className)}>
       {/* Background Image */}
       {backgroundImage && (
-        <div
-          className="absolute inset-0 bg-cover bg-center bg-no-repeat"
-          style={{ backgroundImage: `url(${backgroundImage})` }}
+        <Image
+          src={backgroundImage}
+          alt=""
+          fill
+          priority
+          quality={85}
+          sizes="100vw"
+          className="object-cover object-center"
         />
       )}
 

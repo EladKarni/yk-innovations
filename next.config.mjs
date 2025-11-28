@@ -19,6 +19,10 @@ const nextConfig = {
     ],
     dangerouslyAllowSVG: true,
   },
+  compress: true,
+  experimental: {
+    optimizePackageImports: ['payload', '@payloadcms/next'],
+  },
 }
 
 export default withPayload(nextConfig, {

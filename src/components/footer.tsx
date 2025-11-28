@@ -2,8 +2,8 @@
 import Link from "next/link";
 import { navLinkList } from "@/constants/navLinks";
 import Image from "next/image";
-import { useState, useEffect } from "react";
 import { FC } from "react";
+import { useTheme } from "next-themes";
 
 interface CompanyInfo {
   companyName?: string;
@@ -38,22 +38,9 @@ interface FooterProps {
 
 const Footer: FC<FooterProps> = ({ footerData, companyInfo }) => {
   const currentYear = new Date().getFullYear();
-  const [theme, setTheme] = useState<string | null>(null);
+  const { theme, systemTheme } = useTheme();
 
-  useEffect(() => {
-    setTheme(document.documentElement.getAttribute("data-theme"));
-
-    const observer = new MutationObserver(() => {
-      setTheme(document.documentElement.getAttribute("data-theme"));
-    });
-
-    observer.observe(document.documentElement, {
-      attributes: true,
-      attributeFilter: ["data-theme"],
-    });
-
-    return () => observer.disconnect();
-  }, []);
+  const currentTheme = theme === "system" ? systemTheme : theme;
 
   // Extract data with fallbacks
   const companyName = companyInfo?.companyName || "YK Innovations";
@@ -88,7 +75,7 @@ const Footer: FC<FooterProps> = ({ footerData, companyInfo }) => {
               className="inline-block"
               aria-label="Navigate to Home Page"
             >
-              <Image src="/logo.png" alt={`${companyName} Logo`} className={theme === "dark" ? "invert" : ""} width={183} height={50} priority />
+              <Image src="/logo.png" alt={`${companyName} Logo`} className={currentTheme === "dark" ? "invert" : ""} width={183} height={50} priority />
             </Link>
             <p className="text-base-content/70 text-sm leading-relaxed">
               {tagline}

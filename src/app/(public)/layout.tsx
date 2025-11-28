@@ -9,8 +9,15 @@ import Navbar from "@/components/navbar";
 import NavLinks from "@/components/NavLinks";
 import "../globals.css";
 import { cn } from "@/util/utils";
+import { ThemeProvider } from "@/components/ThemeProvider";
 
-const inter = Inter({ subsets: ["latin"] });
+const inter = Inter({
+  subsets: ["latin"],
+  display: "swap",
+  preload: true,
+  variable: "--font-inter",
+  weight: ["400", "500", "600", "700"],
+});
 
 export const metadata: Metadata = {
   title: "YK Innovations",
@@ -30,9 +37,8 @@ export const metadata: Metadata = {
   },
 };
 
-// Disable all caching for real-time CMS updates
-export const dynamic = 'force-dynamic';
-export const revalidate = 0;
+// Enable ISR with on-demand revalidation for performance
+export const revalidate = 3600; // Cache for 1 hour, revalidate on-demand via webhook
 
 export default async function PublicLayout({
   children,
@@ -56,13 +62,15 @@ export default async function PublicLayout({
   }
 
   return (
-    <html lang="en" data-theme="mytheme" className="scroll-smooth">
+    <html lang="en" suppressHydrationWarning className="scroll-smooth">
       <body className={cn(inter.className, "h-full")}>
-        <Navbar>
-          <NavLinks />
-        </Navbar>
-        {children}
-        <Footer footerData={footerData} companyInfo={companyInfo} />
+        <ThemeProvider>
+          <Navbar>
+            <NavLinks />
+          </Navbar>
+          {children}
+          <Footer footerData={footerData} companyInfo={companyInfo} />
+        </ThemeProvider>
       </body>
     </html>
   );

@@ -71,9 +71,27 @@ function renderRichText(richText: any): ReactElement {
   return <></>;
 }
 
-// Disable all caching for real-time CMS updates
-export const dynamic = 'force-dynamic';
-export const revalidate = 0;
+// Enable ISR with on-demand revalidation for performance
+export const revalidate = 3600; // Cache for 1 hour, revalidate on-demand via webhook
+
+// Pre-generate static pages for all projects at build time
+export async function generateStaticParams() {
+  try {
+    const payload = await getPayload({ config });
+    const projects = await payload.find({
+      collection: "projects",
+      limit: 100,
+      draft: false,
+    });
+
+    return projects.docs.map((project: any) => ({
+      slug: project.slug,
+    }));
+  } catch (error) {
+    console.warn("Failed to generate static params:", error);
+    return [];
+  }
+}
 
 interface ProjectPageProps {
   params: Promise<{

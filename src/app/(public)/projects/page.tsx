@@ -4,9 +4,8 @@ import { getPayload } from "payload";
 import config from "@/payload.config";
 import { draftMode } from "next/headers";
 
-// Disable all caching for real-time CMS updates
-export const dynamic = 'force-dynamic';
-export const revalidate = 0;
+// Enable ISR with on-demand revalidation for performance
+export const revalidate = 3600; // Cache for 1 hour, revalidate on-demand via webhook
 
 interface Project {
   id: string;

@@ -1,11 +1,12 @@
 "use client";
-import { FC, ReactNode, useState, useEffect } from "react";
+import { FC, ReactNode } from "react";
 import clsx from "clsx";
 import { useWindowScroll } from "react-use";
 import Link from "next/link";
 import MobileNavMenu from "./MobileMenu";
 import { useMounted } from "@/hooks/useMounter";
 import Image from "next/image";
+import { useTheme } from "next-themes";
 
 interface NavBarProps {
   children?: ReactNode;
@@ -14,26 +15,9 @@ interface NavBarProps {
 const NavBar: FC<NavBarProps> = ({ children }) => {
   const { y } = useWindowScroll();
   const isMounted = useMounted();
-  const [theme, setTheme] = useState<string>("light");
+  const { theme, systemTheme } = useTheme();
 
-  useEffect(() => {
-    // Initial theme detection
-    const currentTheme = document.documentElement.getAttribute("data-theme") || "light";
-    setTheme(currentTheme);
-
-    // Watch for theme changes
-    const observer = new MutationObserver(() => {
-      const newTheme = document.documentElement.getAttribute("data-theme") || "light";
-      setTheme(newTheme);
-    });
-
-    observer.observe(document.documentElement, {
-      attributes: true,
-      attributeFilter: ["data-theme"],
-    });
-
-    return () => observer.disconnect();
-  }, []);
+  const currentTheme = theme === "system" ? systemTheme : theme;
 
   return (
     <header
@@ -46,7 +30,7 @@ const NavBar: FC<NavBarProps> = ({ children }) => {
         <div className="flex justify-between items-center relative">
           <div className="max-w-[183px] lg:max-w-[163px]">
             <Link href="/">
-              <Image src="/logo.png" alt="YK Innovations Logo" className={theme === "dark" ? "invert" : ""} width={183} height={50} priority />
+              <Image src="/logo.png" alt="YK Innovations Logo" className={currentTheme === "dark" ? "invert" : ""} width={183} height={50} priority />
             </Link>
           </div>
           {children}

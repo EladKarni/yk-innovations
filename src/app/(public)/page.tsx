@@ -69,10 +69,8 @@ interface Testimonial {
   avatar?: any;
 }
 
-// Disable all caching for real-time CMS updates
-export const dynamic = 'force-dynamic';
-export const revalidate = 0;
-export const fetchCache = 'force-no-store';
+// Enable ISR with on-demand revalidation for performance
+export const revalidate = 3600; // Cache for 1 hour, revalidate on-demand via webhook
 
 export default async function Home() {
   // Try to fetch from CMS, fall back to static data if database is unavailable
