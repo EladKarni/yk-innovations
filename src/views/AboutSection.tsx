@@ -30,7 +30,7 @@ const AboutSection: FC<AboutSectionProps> = ({ data }) => {
     subtitle,
     description,
     image,
-    imageAlt = "About Us",
+    imageAlt = "YK Innovations mechanical engineering and prototyping workspace",
     stats,
     cta,
     imagePosition = "right",
