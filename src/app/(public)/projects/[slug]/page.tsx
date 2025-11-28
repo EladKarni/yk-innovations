@@ -224,11 +224,11 @@ export default async function ProjectPage({ params }: ProjectPageProps) {
             {project.results?.length > 0 && (
               <div>
                 <h2 className="text-3xl font-bold text-base-content mb-6">Results</h2>
-                <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+                <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
                   {project.results.map((result: any, index: number) => (
-                    <div key={index} className="bg-primary/10 rounded-lg p-6 text-center">
-                      <div className="text-3xl font-bold text-primary mb-2">{result.value}</div>
-                      <div className="text-sm text-base-content/70">{result.metric}</div>
+                    <div key={index} className="bg-primary/10 rounded-lg p-4 text-center flex flex-col justify-between min-h-[80px]">
+                      <div className="text-xl font-bold text-primary mb-1">{result.value}</div>
+                      <div className="text-xs text-base-content/70 mt-auto">{result.metric}</div>
                     </div>
                   ))}
                 </div>
