@@ -10,7 +10,7 @@ interface Project {
   image?: any;
   heroImage?: any;
   slug: string;
-  technologies?: string[];
+  technologies?: Array<{ technology: string; id?: string }>;
   category?: string;
   featured?: boolean;
 }
@@ -39,6 +39,9 @@ const FeaturedProjectsSection: FC<FeaturedProjectsSectionProps> = ({
               ? (imageSource as any).url || "https://picsum.photos/1200/800?random=" + index
               : imageSource || "https://picsum.photos/1200/800?random=" + index;
 
+          // Extract technology strings from array of objects
+          const techList = project.technologies?.map(t => t.technology) || [];
+
           return (
             <ProjectCard
               key={project.slug || index}
@@ -46,7 +49,7 @@ const FeaturedProjectsSection: FC<FeaturedProjectsSectionProps> = ({
               description={project.description}
               image={imageUrl}
               slug={project.slug}
-              technologies={project.technologies}
+              technologies={techList}
               category={project.category}
               glassMorphism={true}
               featured={project.featured}
