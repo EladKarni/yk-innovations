@@ -156,9 +156,9 @@ export default async function ProjectPage({ params }: ProjectPageProps) {
   ).filter(Boolean) || [];
 
   return (
-    <main className="min-h-screen pt-24">
+    <main className="min-h-screen">
       {/* Hero Section */}
-      <section className="relative h-[400px] md:h-[500px] bg-base-200">
+      <section className="relative h-[800px] md:h-[900px] bg-base-200 -mt-[100px] pt-[100px]">
         <div className="relative w-full h-full">
           <Image
             src={heroImageUrl}
