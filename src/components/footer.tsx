@@ -1,9 +1,8 @@
 "use client";
 import Link from "next/link";
 import { navLinkList } from "@/constants/navLinks";
-import Image from "next/image";
 import { FC } from "react";
-import { useTheme } from "next-themes";
+import { Logo } from "@/ui/icons/logo";
 
 interface CompanyInfo {
   companyName?: string;
@@ -38,9 +37,6 @@ interface FooterProps {
 
 const Footer: FC<FooterProps> = ({ footerData, companyInfo }) => {
   const currentYear = new Date().getFullYear();
-  const { theme, systemTheme } = useTheme();
-
-  const currentTheme = theme === "system" ? systemTheme : theme;
 
   // Extract data with fallbacks
   const companyName = companyInfo?.companyName || "YK Innovations";
@@ -75,7 +71,7 @@ const Footer: FC<FooterProps> = ({ footerData, companyInfo }) => {
               className="inline-block"
               aria-label="Navigate to Home Page"
             >
-              <Image src="/logo.png" alt={`${companyName} Logo`} className={currentTheme === "dark" ? "invert" : ""} width={183} height={50} priority />
+              <Logo width={183} height={50} priority />
             </Link>
             <p className="text-base-content/70 text-sm leading-relaxed">
               {tagline}

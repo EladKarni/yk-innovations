@@ -5,8 +5,7 @@ import { useWindowScroll } from "react-use";
 import Link from "next/link";
 import MobileNavMenu from "./MobileMenu";
 import { useMounted } from "@/hooks/useMounter";
-import Image from "next/image";
-import { useTheme } from "next-themes";
+import { Logo } from "@/ui/icons/logo";
 
 interface NavBarProps {
   children?: ReactNode;
@@ -15,9 +14,6 @@ interface NavBarProps {
 const NavBar: FC<NavBarProps> = ({ children }) => {
   const { y } = useWindowScroll();
   const isMounted = useMounted();
-  const { theme, systemTheme } = useTheme();
-
-  const currentTheme = theme === "system" ? systemTheme : theme;
 
   return (
     <header
@@ -30,7 +26,7 @@ const NavBar: FC<NavBarProps> = ({ children }) => {
         <div className="flex justify-between items-center relative">
           <div className="max-w-[183px] lg:max-w-[163px]">
             <Link href="/">
-              <Image src="/logo.png" alt="YK Innovations Logo" className={currentTheme === "dark" ? "invert" : ""} width={183} height={50} priority />
+              <Logo width={183} height={50} priority />
             </Link>
           </div>
           {children}
