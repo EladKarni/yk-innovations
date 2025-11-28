@@ -35,13 +35,13 @@ export default buildConfig({
   },
   // CORS configuration - allows cookies from the correct domain
   cors: [
-    process.env.NEXT_PUBLIC_SERVER_URL || 'http://localhost:3000',
-    'https://*.netlify.app',
+    process.env.NEXT_PUBLIC_SERVER_URL || "http://localhost:3000",
+    "https://*.netlify.app",
   ],
   // CSRF protection configuration - prevents CSRF token validation failures
   csrf: [
-    process.env.NEXT_PUBLIC_SERVER_URL || 'http://localhost:3000',
-    'https://*.netlify.app',
+    process.env.NEXT_PUBLIC_SERVER_URL || "http://localhost:3000",
+    "https://*.netlify.app",
   ],
   collections: [Users, Media, Projects, Services, Testimonials],
   globals: [
@@ -54,13 +54,15 @@ export default buildConfig({
     CompanyInfo,
   ],
   editor: lexicalEditor({}),
-  secret: process.env.PAYLOAD_SECRET || 'dev-secret-key-change-in-production',
+  secret: process.env.PAYLOAD_SECRET || "dev-secret-key-change-in-production",
   typescript: {
     outputFile: path.resolve(dirname, "../payload-types.ts"),
   },
   db: postgresAdapter({
     pool: {
-      connectionString: process.env.DATABASE_URL || "postgresql://payload:payload@localhost:5432/nextjs_tailwind_daisyui",
+      connectionString:
+        process.env.NETLIFY_DATABASE_URL ||
+        "postgresql://payload:payload@localhost:5432/nextjs_tailwind_daisyui",
     },
   }),
   serverURL: process.env.NEXT_PUBLIC_SERVER_URL || "http://localhost:3000",
