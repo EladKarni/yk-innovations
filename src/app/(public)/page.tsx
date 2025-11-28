@@ -56,7 +56,7 @@ interface Project {
   description: string;
   image?: any;
   slug: string;
-  technologies?: string[];
+  technologies?: Array<{ technology: string; id?: string }>;
   category?: string;
   featured?: boolean;
 }
