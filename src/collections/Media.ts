@@ -4,12 +4,9 @@ export const Media: CollectionConfig = {
   slug: 'media',
   access: {
     read: () => true,
-    create: () => true,
-    update: () => true,
-    delete: async ({ req }) => {
-      // Allow deletion - errors will be handled in hooks
-      return true
-    },
+    create: ({ req: { user } }) => !!user,
+    update: ({ req: { user } }) => !!user,
+    delete: ({ req: { user } }) => !!user,
   },
   hooks: {
     beforeDelete: [
