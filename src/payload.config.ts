@@ -36,10 +36,12 @@ export default buildConfig({
   // CORS configuration - allows cookies from the correct domain
   cors: [
     process.env.NEXT_PUBLIC_SERVER_URL || 'http://localhost:3000',
+    'https://*.netlify.app',
   ],
   // CSRF protection configuration - prevents CSRF token validation failures
   csrf: [
     process.env.NEXT_PUBLIC_SERVER_URL || 'http://localhost:3000',
+    'https://*.netlify.app',
   ],
   collections: [Users, Media, Projects, Services, Testimonials],
   globals: [
