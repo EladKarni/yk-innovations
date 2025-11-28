@@ -39,9 +39,10 @@ export default buildConfig({
     "https://*.netlify.app",
   ],
   // CSRF protection configuration - prevents CSRF token validation failures
+  // Note: Wildcards don't work in CSRF validation (requires exact domain match)
+  // Remove trailing slash to match browser Origin header format
   csrf: [
-    process.env.NEXT_PUBLIC_SERVER_URL || "http://localhost:3000",
-    "https://*.netlify.app",
+    (process.env.NEXT_PUBLIC_SERVER_URL || "http://localhost:3000").replace(/\/$/, ""),
   ],
   collections: [Users, Media, Projects, Services, Testimonials],
   globals: [
