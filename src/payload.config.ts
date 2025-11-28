@@ -52,23 +52,13 @@ export default buildConfig({
     CompanyInfo,
   ],
   editor: lexicalEditor({}),
-  secret: process.env.PAYLOAD_SECRET || (() => {
-    if (process.env.NODE_ENV === 'production') {
-      throw new Error('PAYLOAD_SECRET environment variable is required in production')
-    }
-    return 'dev-secret-key-change-in-production'
-  })(),
+  secret: process.env.PAYLOAD_SECRET || 'dev-secret-key-change-in-production',
   typescript: {
     outputFile: path.resolve(dirname, "../payload-types.ts"),
   },
   db: postgresAdapter({
     pool: {
-      connectionString: process.env.DATABASE_URL || (() => {
-        if (process.env.NODE_ENV === 'production') {
-          throw new Error('DATABASE_URL environment variable is required in production')
-        }
-        return "postgresql://payload:payload@localhost:5432/nextjs_tailwind_daisyui"
-      })(),
+      connectionString: process.env.DATABASE_URL || "postgresql://payload:payload@localhost:5432/nextjs_tailwind_daisyui",
     },
   }),
   serverURL: process.env.NEXT_PUBLIC_SERVER_URL || "http://localhost:3000",
