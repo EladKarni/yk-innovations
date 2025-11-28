@@ -195,19 +195,21 @@ export default async function ProjectPage({ params }: ProjectPageProps) {
             </div>
 
             {/* Features */}
-            <div>
-              <h2 className="text-3xl font-bold text-base-content mb-4">Key Features</h2>
-              <ul className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                {featuresList.map((feature: string, index: number) => (
-                  <li key={index} className="flex items-start gap-3">
-                    <svg className="w-6 h-6 text-primary flex-shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
-                    </svg>
-                    <span className="text-base-content/80">{feature}</span>
-                  </li>
-                ))}
-              </ul>
-            </div>
+            {featuresList.length > 0 && (
+              <div>
+                <h2 className="text-3xl font-bold text-base-content mb-4">Key Features</h2>
+                <ul className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                  {featuresList.map((feature: string, index: number) => (
+                    <li key={index} className="flex items-start gap-3">
+                      <svg className="w-6 h-6 text-primary flex-shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
+                      </svg>
+                      <span className="text-base-content/80">{feature}</span>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            )}
 
             {/* Challenge & Solution */}
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
@@ -222,17 +224,19 @@ export default async function ProjectPage({ params }: ProjectPageProps) {
             </div>
 
             {/* Results */}
-            <div>
-              <h2 className="text-3xl font-bold text-base-content mb-6">Results</h2>
-              <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-                {project.results.map((result: any, index: number) => (
-                  <div key={index} className="bg-primary/10 rounded-lg p-6 text-center">
-                    <div className="text-3xl font-bold text-primary mb-2">{result.value}</div>
-                    <div className="text-sm text-base-content/70">{result.metric}</div>
-                  </div>
-                ))}
+            {project.results?.length > 0 && (
+              <div>
+                <h2 className="text-3xl font-bold text-base-content mb-6">Results</h2>
+                <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+                  {project.results.map((result: any, index: number) => (
+                    <div key={index} className="bg-primary/10 rounded-lg p-6 text-center">
+                      <div className="text-3xl font-bold text-primary mb-2">{result.value}</div>
+                      <div className="text-sm text-base-content/70">{result.metric}</div>
+                    </div>
+                  ))}
+                </div>
               </div>
-            </div>
+            )}
           </div>
 
           {/* Sidebar */}
@@ -251,19 +255,21 @@ export default async function ProjectPage({ params }: ProjectPageProps) {
                 <div className="text-sm font-semibold text-base-content/60 mb-1">Year</div>
                 <div className="text-base-content">{project.year}</div>
               </div>
-              <div>
-                <div className="text-sm font-semibold text-base-content/60 mb-2">Technologies</div>
-                <div className="flex flex-wrap gap-2">
-                  {techList.map((tech: string, index: number) => (
-                    <span
-                      key={index}
-                      className="text-xs px-3 py-1 rounded-full bg-base-100 text-base-content"
-                    >
-                      {tech}
-                    </span>
-                  ))}
+              {techList.length > 0 && (
+                <div>
+                  <div className="text-sm font-semibold text-base-content/60 mb-2">Technologies</div>
+                  <div className="flex flex-wrap gap-2">
+                    {techList.map((tech: string, index: number) => (
+                      <span
+                        key={index}
+                        className="text-xs px-3 py-1 rounded-full bg-base-100 text-base-content"
+                      >
+                        {tech}
+                      </span>
+                    ))}
+                  </div>
                 </div>
-              </div>
+              )}
 
               <div className="pt-4 space-y-3">
                 <CTAButton href="/#contact" variant="primary" size="md" className="w-full">
