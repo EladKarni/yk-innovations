@@ -66,6 +66,7 @@ export default buildConfig({
         "postgresql://payload:payload@localhost:5432/nextjs_tailwind_daisyui",
     },
     push: false, // Disable automatic schema sync - use migrations instead
+    migrationDir: path.resolve(dirname, './migrations'),
   }),
   serverURL: process.env.NEXT_PUBLIC_SERVER_URL || "http://localhost:3000",
   sharp,
