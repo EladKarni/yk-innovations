@@ -61,7 +61,7 @@ export const CogIcon: FC<IconProps> = ({ className = "w-12 h-12", ...props }) =>
   </svg>
 );
 
-export const RocketIcon: FC<IconProps> = ({ className = "w-12 h-12", ...props }) => (
+export const LightningBoltIcon: FC<IconProps> = ({ className = "w-12 h-12", ...props }) => (
   <svg className={className} fill="none" stroke="currentColor" viewBox="0 0 24 24" {...props}>
     <path
       strokeLinecap="round"
@@ -139,6 +139,45 @@ export const ClipboardIcon: FC<IconProps> = ({ className = "w-12 h-12", ...props
   </svg>
 );
 
+export const ChipIcon: FC<IconProps> = ({ className = "w-12 h-12", ...props }) => (
+  <svg className={className} fill="none" stroke="currentColor" viewBox="0 0 24 24" {...props}>
+    <path
+      strokeLinecap="round"
+      strokeLinejoin="round"
+      strokeWidth={2}
+      d="M9 3v2m6-2v2M9 19v2m6-2v2M5 9H3m2 6H3m18-6h-2m2 6h-2M7 19h10a2 2 0 002-2V7a2 2 0 00-2-2H7a2 2 0 00-2 2v10a2 2 0 002 2zM9 9h6v6H9V9z"
+    />
+  </svg>
+);
+
+export const RulerIcon: FC<IconProps> = ({ className = "w-12 h-12", ...props }) => (
+  <svg className={className} fill="none" stroke="currentColor" viewBox="0 0 24 24" {...props}>
+    <path
+      strokeLinecap="round"
+      strokeLinejoin="round"
+      strokeWidth={2}
+      d="M3 3h8l10 10-8 8-10-10V3z"
+    />
+    <path
+      strokeLinecap="round"
+      strokeLinejoin="round"
+      strokeWidth={2}
+      d="M6.5 6.5l1 1m2-2l1 1m2-2l1 1m2-2l1 1"
+    />
+  </svg>
+);
+
+export const CodeBracketsIcon: FC<IconProps> = ({ className = "w-12 h-12", ...props }) => (
+  <svg className={className} fill="none" stroke="currentColor" viewBox="0 0 24 24" {...props}>
+    <path
+      strokeLinecap="round"
+      strokeLinejoin="round"
+      strokeWidth={2}
+      d="M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4"
+    />
+  </svg>
+);
+
 // Contact Icons
 export const EmailIcon: FC<IconProps> = ({ className = "w-4 h-4", ...props }) => (
   <svg className={className} fill="none" stroke="currentColor" viewBox="0 0 24 24" {...props}>
@@ -212,21 +251,31 @@ export const InstagramIcon: FC<IconProps> = ({ className = "w-5 h-5", ...props }
 // Icon mapper for dynamic icon selection
 export const getIconByName = (name: string, className?: string) => {
   const icons: Record<string, FC<IconProps>> = {
+    // Process Icons
     lightbulb: LightbulbIcon,
     design: DesignIcon,
     flask: FlaskIcon,
     shield: ShieldIcon,
     cog: CogIcon,
-    rocket: RocketIcon,
+    'lightning-bolt': LightningBoltIcon,
+
+    // Service Icons
     cube: CubeIcon,
     printer: PrinterIcon,
     chart: ChartIcon,
     beaker: BeakerIcon,
     template: TemplateIcon,
     clipboard: ClipboardIcon,
+    chip: ChipIcon,
+    ruler: RulerIcon,
+    'code-brackets': CodeBracketsIcon,
+
+    // Contact Icons
     email: EmailIcon,
     phone: PhoneIcon,
     mapPin: MapPinIcon,
+
+    // Social Icons
     github: GithubIcon,
     linkedin: LinkedInIcon,
     twitter: TwitterIcon,

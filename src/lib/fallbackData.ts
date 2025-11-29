@@ -69,28 +69,40 @@ export const fallbackProcessData = {
 
 export const fallbackServices = [
   {
-    title: "CAD Design & Engineering",
+    title: "3D CAD Modeling & Enclosure Design",
     description:
-      "Professional 3D modeling, engineering drawings, and design optimization for manufacturing.",
+      "Detailed SolidWorks modeling for enclosures, assemblies, mechanisms, and product-grade housings ready for prototyping.",
+    icon: "lightning-bolt",
+  },
+  {
+    title: "Engineering Consulting & Problem Solving",
+    description:
+      "Technical guidance, feasibility evaluations, mechanism troubleshooting, and prototype optimization for early-stage products.",
+    icon: "chip",
+  },
+  {
+    title: "Full Turnkey Product Development",
+    description:
+      "End-to-end engineering support. From concept and design to electronics, firmware, and a fully working prototype. A complete solution handled in-house.",
+    icon: "ruler",
+  },
+  {
+    title: "Custom PCB Development",
+    description:
+      "Design and development of small-scale printed circuit boards for prototypes, sensor modules, control systems, and embedded devices.",
+    icon: "code-brackets",
+  },
+  {
+    title: "Electronics Integration",
+    description:
+      "Seamless integration of sensors, motors, actuators, displays, and control boards into complete electromechanical systems, even without mass-production electronics.",
     icon: "cube",
   },
   {
     title: "Rapid Prototyping",
     description:
-      "Fast iteration with 3D printing (FDM/SLA), CNC machining, and multi-material prototyping.",
-    icon: "lightning-bolt",
-  },
-  {
-    title: "Design for Manufacturing (DFM)",
-    description:
-      "Optimize your designs for cost-effective production while maintaining quality and functionality.",
-    icon: "cog",
-  },
-  {
-    title: "Product Testing & Validation",
-    description:
-      "Comprehensive testing including FEA, thermal analysis, and functional validation.",
-    icon: "beaker",
+      "Fast, functional prototypes using 3D printing, CNC machining, and modular electronics. From concept to working model in months, not years.",
+    icon: "printer",
   },
 ];
 
