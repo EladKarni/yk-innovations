@@ -17,7 +17,7 @@ const IconCard: FC<IconCardProps> = ({
     "group p-6 md:p-8 rounded-lg transition-all duration-300 hover:-translate-y-1",
     {
       "bg-base-100 hover:shadow-lg": variant === "default",
-      "bg-white/60 dark:bg-base-200/60 backdrop-blur-sm border border-gray-300 dark:border-base-300 hover:shadow-xl":
+      "bg-white/80 dark:bg-base-200/80 backdrop-blur-sm border border-gray-300 dark:border-base-300 hover:shadow-xl":
         variant === "glass",
       "bg-base-100 border-2 border-base-300 hover:border-primary hover:shadow-lg":
         variant === "bordered",
@@ -28,7 +28,7 @@ const IconCard: FC<IconCardProps> = ({
   const CardContent = () => (
     <>
       {/* Icon */}
-      <div className="mb-4 text-primary transition-transform duration-300 group-hover:scale-110">
+      <div className="mb-4 text-[#0693e3] transition-transform duration-300 group-hover:scale-110">
         {iconElement}
       </div>
 

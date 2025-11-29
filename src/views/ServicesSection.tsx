@@ -6,7 +6,7 @@ import type { ServicesSectionProps } from "@/types";
 
 const ServicesSection: FC<ServicesSectionProps> = ({ data }) => {
   return (
-    <SectionContainer sectionName="solutions" background="base">
+    <SectionContainer sectionName="solutions" background="alt">
       <SectionHeader title="Our Services" subtitle="What We Do" />
 
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">

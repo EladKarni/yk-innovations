@@ -194,6 +194,27 @@ export const CodeBracketsIcon: FC<IconProps> = ({ className = "w-12 h-12", ...pr
   </svg>
 );
 
+export const PCBIcon: FC<IconProps> = ({ className = "w-12 h-12", ...props }) => (
+  <svg className={className} fill="none" stroke="currentColor" viewBox="0 0 24 24" {...props}>
+    <rect
+      x="4"
+      y="4"
+      width="16"
+      height="16"
+      strokeWidth={2}
+      strokeLinecap="round"
+      strokeLinejoin="round"
+    />
+    <circle cx="8" cy="8" r="1" fill="currentColor" />
+    <circle cx="16" cy="8" r="1" fill="currentColor" />
+    <circle cx="8" cy="16" r="1" fill="currentColor" />
+    <circle cx="16" cy="16" r="1" fill="currentColor" />
+    <path d="M8 8h8M8 12h8M8 16h8" strokeWidth={2} strokeLinecap="round" />
+    <path d="M12 8v8" strokeWidth={2} strokeLinecap="round" />
+    <rect x="10" y="10" width="4" height="4" strokeWidth={2} />
+  </svg>
+);
+
 // Contact Icons
 export const EmailIcon: FC<IconProps> = ({ className = "w-4 h-4", ...props }) => (
   <svg className={className} fill="none" stroke="currentColor" viewBox="0 0 24 24" {...props}>
@@ -286,6 +307,8 @@ export const getIconByName = (name: string, className?: string) => {
     ruler: RulerIcon,
     'triangle-ruler': TriangleRulerIcon,
     'code-brackets': CodeBracketsIcon,
+    'pcb': PCBIcon,
+    'circuit-board': PCBIcon,
 
     // Contact Icons
     email: EmailIcon,

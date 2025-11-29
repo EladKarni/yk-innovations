@@ -100,7 +100,7 @@ export const fallbackServices = [
     title: "Custom PCB Development",
     description:
       "Design and development of small-scale printed circuit boards for prototypes, sensor modules, control systems, and embedded devices.",
-    icon: "code-brackets",
+    icon: "pcb",
   },
   {
     title: "Electronics Integration",
