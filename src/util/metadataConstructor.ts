@@ -4,7 +4,7 @@ export function metadataConstructor({
   title = "YK Innovations",
   description = "YK Innovations is here to help you bring your ideas to life",
   image = "url-preview-image.png",
-  icons = "/favicon.ico",
+  icons = "/favicon/favicon.ico",
   noIndex = false,
   customMetadata = {},
 }: {
