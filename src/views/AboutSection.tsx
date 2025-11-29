@@ -69,15 +69,6 @@ const AboutSection: FC<AboutSectionProps> = ({ data }) => {
               ))}
             </div>
           )}
-
-          {/* CTA */}
-          {cta && (
-            <div className="mt-8">
-              <CTAButton href={cta.href} variant="primary" size="md">
-                {cta.text}
-              </CTAButton>
-            </div>
-          )}
         </div>
 
         {/* Image */}
