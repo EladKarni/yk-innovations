@@ -65,6 +65,7 @@ export default buildConfig({
         process.env.NETLIFY_DATABASE_URL ||
         "postgresql://payload:payload@localhost:5432/nextjs_tailwind_daisyui",
     },
+    push: false, // Disable automatic schema sync - use migrations instead
   }),
   serverURL: process.env.NEXT_PUBLIC_SERVER_URL || "http://localhost:3000",
   sharp,
