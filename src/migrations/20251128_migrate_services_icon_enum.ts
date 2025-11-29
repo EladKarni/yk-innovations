@@ -1,5 +1,12 @@
 import { MigrateUpArgs, MigrateDownArgs, sql } from '@payloadcms/db-postgres'
 
+// Type for service rows returned from database
+interface ServiceRow {
+  id: number
+  title: string
+  icon: string
+}
+
 // Icon value mapping from old to new
 const iconMapping: Record<string, string> = {
   'web': 'code-brackets',
@@ -31,15 +38,15 @@ export async function up({ db, payload, req }: MigrateUpArgs): Promise<void> {
 
   try {
     // SAFETY CHECKPOINT 1: Verify services data exists
-    const { rows: existingServices } = await db.execute(
+    const { rows: existingServices } = (await db.execute(
       sql`SELECT id, title, icon FROM services WHERE icon IS NOT NULL`
-    )
+    )) as unknown as { rows: ServiceRow[] }
     console.log(`📊 Found ${existingServices.length} services to migrate`)
 
     // SAFETY CHECKPOINT 2: Log all current data before ANY changes
     if (existingServices.length > 0) {
       console.log('📝 Current services before migration:')
-      existingServices.forEach((s: any) => {
+      existingServices.forEach((s) => {
         console.log(`  - ${s.title}: ${s.icon}`)
       })
     } else {
@@ -158,9 +165,9 @@ export async function up({ db, payload, req }: MigrateUpArgs): Promise<void> {
     console.log('--------------------------------------------------------------------------------')
 
     // SAFETY CHECKPOINT 3: Verify no data lost
-    const { rows: migratedServices } = await db.execute(
+    const { rows: migratedServices } = (await db.execute(
       sql`SELECT id, title, icon FROM services WHERE icon IS NOT NULL`
-    )
+    )) as unknown as { rows: ServiceRow[] }
 
     console.log('🔍 VERIFICATION:')
     console.log(`   Services before migration: ${existingServices.length}`)
@@ -174,7 +181,7 @@ export async function up({ db, payload, req }: MigrateUpArgs): Promise<void> {
 
     if (migratedServices.length > 0) {
       console.log('📝 Services after migration:')
-      migratedServices.forEach((s: any) => {
+      migratedServices.forEach((s) => {
         console.log(`  - ${s.title}: ${s.icon}`)
       })
     }
@@ -198,14 +205,14 @@ export async function down({ db, payload, req }: MigrateDownArgs): Promise<void>
 
   try {
     // Get current services data
-    const { rows: currentServices } = await db.execute(
+    const { rows: currentServices } = (await db.execute(
       sql`SELECT id, title, icon FROM services WHERE icon IS NOT NULL`
-    )
+    )) as unknown as { rows: ServiceRow[] }
     console.log(`📊 Found ${currentServices.length} services to rollback`)
 
     if (currentServices.length > 0) {
       console.log('📝 Current services before rollback:')
-      currentServices.forEach((s: any) => {
+      currentServices.forEach((s) => {
         console.log(`  - ${s.title}: ${s.icon}`)
       })
     }
@@ -320,9 +327,9 @@ export async function down({ db, payload, req }: MigrateDownArgs): Promise<void>
     console.log('--------------------------------------------------------------------------------')
 
     // Verify rollback
-    const { rows: rolledBackServices } = await db.execute(
+    const { rows: rolledBackServices } = (await db.execute(
       sql`SELECT id, title, icon FROM services WHERE icon IS NOT NULL`
-    )
+    )) as unknown as { rows: ServiceRow[] }
 
     console.log('🔍 VERIFICATION:')
     console.log(`   Services before rollback: ${currentServices.length}`)
@@ -336,7 +343,7 @@ export async function down({ db, payload, req }: MigrateDownArgs): Promise<void>
 
     if (rolledBackServices.length > 0) {
       console.log('📝 Services after rollback:')
-      rolledBackServices.forEach((s: any) => {
+      rolledBackServices.forEach((s) => {
         console.log(`  - ${s.title}: ${s.icon}`)
       })
     }
