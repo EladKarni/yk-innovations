@@ -115,7 +115,7 @@ export default async function Home() {
       <ProcessSection data={processData as ProcessSectionData} />
 
       {/* Testimonials Section - Data from CMS */}
-      <TestimonialsSection data={testimonials.docs as Testimonial[]} />
+      {/* <TestimonialsSection data={testimonials.docs as Testimonial[]} /> */}
 
       {/* Contact Section - Data from CMS */}
       <ContactSection
