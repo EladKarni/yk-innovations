@@ -16,6 +16,7 @@ interface HeroProps {
     href: string;
   };
   backgroundImage?: string;
+  backgroundImageAlt?: string;
   backgroundVideo?: string;
   overlay?: boolean;
   overlayOpacity?: number;
@@ -30,6 +31,7 @@ const Hero: FC<HeroProps> = ({
   primaryCTA,
   secondaryCTA,
   backgroundImage,
+  backgroundImageAlt = "Hero background image",
   backgroundVideo,
   overlay = true,
   overlayOpacity = 40,
@@ -42,7 +44,7 @@ const Hero: FC<HeroProps> = ({
       {backgroundImage && (
         <Image
           src={backgroundImage}
-          alt=""
+          alt={backgroundImageAlt}
           fill
           priority
           quality={85}

@@ -30,7 +30,7 @@ const AboutSection: FC<AboutSectionProps> = ({ data }) => {
     subtitle,
     description,
     image,
-    imageAlt = "YK Innovations mechanical engineering and prototyping workspace",
+    imageAlt,
     stats,
     cta,
     imagePosition = "right",
@@ -41,6 +41,12 @@ const AboutSection: FC<AboutSectionProps> = ({ data }) => {
     typeof image === "object" && image !== null
       ? (image as any).url || "https://picsum.photos/800/600?random=2"
       : image || "https://picsum.photos/800/600?random=2";
+
+  // Use default alt text if imageAlt is empty or undefined
+  const altText = imageAlt && imageAlt.trim() !== ""
+    ? imageAlt
+    : "YK Innovations mechanical engineering and prototyping workspace";
+
   return (
     <SectionContainer sectionName="about" background="alt">
       <div className={`grid grid-cols-1 lg:grid-cols-2 gap-12 items-center ${imagePosition === "left" ? "lg:flex-row-reverse" : ""}`}>
@@ -76,7 +82,7 @@ const AboutSection: FC<AboutSectionProps> = ({ data }) => {
           <div className="relative h-[400px] md:h-[500px] rounded-lg overflow-hidden shadow-xl">
             <Image
               src={imageUrl}
-              alt={imageAlt}
+              alt={altText}
               fill
               className="object-cover"
               sizes="(max-width: 1024px) 100vw, 50vw"
