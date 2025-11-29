@@ -2,16 +2,7 @@ import { FC } from "react";
 import SectionContainer from "@/ui/SectionContainer";
 import IconCard from "@/components/IconCard";
 import SectionHeader from "@/components/SectionHeader";
-
-interface Service {
-  title: string;
-  description: string;
-  icon?: string;
-}
-
-interface ServicesSectionProps {
-  data: Service[];
-}
+import type { ServicesSectionProps } from "@/types";
 
 const ServicesSection: FC<ServicesSectionProps> = ({ data }) => {
   return (

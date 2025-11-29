@@ -4,33 +4,10 @@ import { getPayload } from "payload";
 import config from "@/payload.config";
 import { draftMode } from "next/headers";
 import { fallbackProjectsPageData } from "@/lib/fallbackData";
+import type { Project, ProjectsSectionData } from "@/types";
 
 // Enable ISR with on-demand revalidation for performance
 export const revalidate = 3600; // Cache for 1 hour, revalidate on-demand via webhook
-
-interface Project {
-  id: string;
-  title: string;
-  description: string;
-  heroImage?: any;
-  slug: string;
-  technologies?: Array<{ technology: string; id?: string }>;
-  category?: string;
-  featured?: boolean;
-  createdAt: string;
-  updatedAt: string;
-}
-
-interface PageHeader {
-  label?: string;
-  title?: string;
-  description?: string;
-}
-
-interface ProjectsSectionData {
-  title?: string;
-  pageHeader?: PageHeader;
-}
 
 export default async function ProjectsPage() {
   // Fetch projects from CMS
@@ -89,8 +66,8 @@ export default async function ProjectsPage() {
               <div
                 key={category}
                 className={`px-6 py-2 rounded-full font-medium ${category === "All"
-                    ? "bg-primary text-primary-content"
-                    : "bg-base-200 text-base-content"
+                  ? "bg-primary text-primary-content"
+                  : "bg-base-200 text-base-content"
                   }`}
               >
                 {category}

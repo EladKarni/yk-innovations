@@ -2,27 +2,7 @@ import { FC } from "react";
 import Image from "next/image";
 import SectionContainer from "@/ui/SectionContainer";
 import CTAButton from "@/ui/CTAButton";
-
-interface AboutSectionData {
-  title: string;
-  subtitle?: string;
-  description: string;
-  image?: any;
-  imageAlt?: string;
-  stats?: Array<{
-    value: string;
-    label: string;
-  }>;
-  cta?: {
-    text: string;
-    href: string;
-  };
-  imagePosition?: "left" | "right";
-}
-
-interface AboutSectionProps {
-  data: AboutSectionData;
-}
+import type { AboutSectionProps } from "@/types";
 
 const AboutSection: FC<AboutSectionProps> = ({ data }) => {
   const {

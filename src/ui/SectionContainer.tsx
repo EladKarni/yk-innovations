@@ -1,14 +1,5 @@
 import { cn } from "@/util/utils";
-
-type SectionContainerProps = {
-  children: React.ReactNode;
-  sectionName: string;
-  isFullWidth?: boolean;
-  sectionClasses?: string;
-  innerContainerClasses?: string;
-  background?: "none" | "base" | "alt" | "gradient";
-  noPadding?: boolean;
-};
+import type { SectionContainerProps } from "@/types";
 
 const SectionContainer = ({
   children,

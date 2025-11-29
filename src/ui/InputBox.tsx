@@ -1,12 +1,5 @@
 import React from "react";
-
-type InputBoxProps = {
-  children: React.ReactNode;
-  id: string;
-  field: string;
-  placeholder: string;
-  inputType: "text" | "email" | "tel";
-};
+import type { InputBoxProps } from "@/types";
 
 const InputBox = ({ children, id, field, placeholder }: InputBoxProps) => {
   return (

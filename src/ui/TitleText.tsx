@@ -1,10 +1,5 @@
 import { cn } from "@/util/utils";
-
-type TitleTextProps = {
-  children: React.ReactNode;
-  DarkMode?: boolean;
-  sectionClasses?: string;
-};
+import type { TitleTextProps } from "@/types";
 
 const TitleText = ({ children, DarkMode, sectionClasses }: TitleTextProps) => {
   return (

@@ -2,17 +2,7 @@ import { FC } from "react";
 import Link from "next/link";
 import Image from "next/image";
 import clsx from "clsx";
-
-interface ProjectCardProps {
-  title: string;
-  description: string;
-  image: string;
-  slug: string;
-  technologies?: string[];
-  category?: string;
-  glassMorphism?: boolean;
-  featured?: boolean;
-}
+import type { ProjectCardProps } from "@/types";
 
 const ProjectCard: FC<ProjectCardProps> = ({
   title,

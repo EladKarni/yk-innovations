@@ -2,18 +2,7 @@ import { FC } from "react";
 import SectionContainer from "@/ui/SectionContainer";
 import SectionHeader from "@/components/SectionHeader";
 import Image from "next/image";
-
-interface Testimonial {
-  quote: string;
-  author: string;
-  role: string;
-  company: string;
-  avatar?: any;
-}
-
-interface TestimonialsSectionProps {
-  data: Testimonial[];
-}
+import type { TestimonialsSectionProps } from "@/types";
 
 const TestimonialsSection: FC<TestimonialsSectionProps> = ({ data }) => {
   return (

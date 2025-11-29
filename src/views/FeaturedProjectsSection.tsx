@@ -3,23 +3,7 @@ import SectionContainer from "@/ui/SectionContainer";
 import ProjectCard from "@/components/ProjectCard";
 import CTAButton from "@/ui/CTAButton";
 import SectionHeader from "@/components/SectionHeader";
-
-interface Project {
-  title: string;
-  description: string;
-  image?: any;
-  heroImage?: any;
-  slug: string;
-  technologies?: Array<{ technology: string; id?: string }>;
-  category?: string;
-  featured?: boolean;
-}
-
-interface FeaturedProjectsSectionProps {
-  data: Project[];
-  showViewAll?: boolean;
-  title?: string;
-}
+import type { FeaturedProjectsSectionProps } from "@/types";
 
 const FeaturedProjectsSection: FC<FeaturedProjectsSectionProps> = ({
   data,

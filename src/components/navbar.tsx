@@ -1,15 +1,12 @@
 "use client";
-import { FC, ReactNode } from "react";
+import { FC } from "react";
 import clsx from "clsx";
 import { useWindowScroll } from "react-use";
 import Link from "next/link";
 import MobileNavMenu from "./MobileMenu";
 import { useMounted } from "@/hooks/useMounter";
 import { Logo } from "@/ui/icons/logo";
-
-interface NavBarProps {
-  children?: ReactNode;
-}
+import type { NavBarProps } from "@/types";
 
 const NavBar: FC<NavBarProps> = ({ children }) => {
   const { y } = useWindowScroll();

@@ -1,11 +1,5 @@
 import { FC } from "react";
-
-interface SectionHeaderProps {
-  title: string;
-  subtitle?: string;
-  alignment?: "left" | "center" | "right";
-  className?: string;
-}
+import type { SectionHeaderProps } from "@/types";
 
 const SectionHeader: FC<SectionHeaderProps> = ({
   title,

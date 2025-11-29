@@ -1,19 +1,7 @@
 import Link from "next/link";
-import { FC, ReactNode } from "react";
+import { FC } from "react";
 import clsx from "clsx";
-
-interface CTAButtonProps {
-  children: ReactNode;
-  href?: string;
-  onClick?: () => void;
-  variant?: "primary" | "ghost" | "secondary";
-  size?: "sm" | "md" | "lg";
-  disabled?: boolean;
-  loading?: boolean;
-  icon?: ReactNode;
-  className?: string;
-  type?: "button" | "submit" | "reset";
-}
+import type { CTAButtonProps } from "@/types";
 
 const CTAButton: FC<CTAButtonProps> = ({
   children,

@@ -1,8 +1,7 @@
-import { FC, SVGProps } from "react";
+import { FC } from "react";
+import type { IconProps } from "@/types";
 
-export interface IconProps extends SVGProps<SVGSVGElement> {
-  className?: string;
-}
+export type { IconProps };
 
 // Process Icons
 export const LightbulbIcon: FC<IconProps> = ({ className = "w-12 h-12", ...props }) => (

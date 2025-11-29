@@ -3,13 +3,7 @@
 import { useTheme } from "next-themes";
 import { useEffect, useState } from "react";
 import Image from "next/image";
-
-type LogoProps = {
-  width?: number;
-  height?: number;
-  priority?: boolean;
-  className?: string;
-};
+import type { LogoProps } from "@/types";
 
 const Logo = ({
   width = 183,

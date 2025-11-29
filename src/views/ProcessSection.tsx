@@ -3,23 +3,7 @@ import SectionContainer from "@/ui/SectionContainer";
 import IconCard from "@/components/IconCard";
 import SectionHeader from "@/components/SectionHeader";
 import { getIconByName } from "@/components/icons";
-
-interface ProcessStep {
-  number: string;
-  icon: string;
-  title: string;
-  description: string;
-}
-
-interface ProcessSectionData {
-  title: string;
-  subtitle?: string;
-  steps: ProcessStep[];
-}
-
-interface ProcessSectionProps {
-  data: ProcessSectionData;
-}
+import type { ProcessSectionProps } from "@/types";
 
 const ProcessSection: FC<ProcessSectionProps> = ({ data }) => {
   const { title, subtitle, steps } = data;

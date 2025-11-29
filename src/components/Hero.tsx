@@ -1,28 +1,8 @@
-import { FC, ReactNode } from "react";
+import { FC } from "react";
 import CTAButton from "@/ui/CTAButton";
 import clsx from "clsx";
 import Image from "next/image";
-
-interface HeroProps {
-  title: string;
-  subtitle?: string;
-  description?: string;
-  primaryCTA?: {
-    text: string;
-    href: string;
-  };
-  secondaryCTA?: {
-    text: string;
-    href: string;
-  };
-  backgroundImage?: string;
-  backgroundImageAlt?: string;
-  backgroundVideo?: string;
-  overlay?: boolean;
-  overlayOpacity?: number;
-  children?: ReactNode;
-  className?: string;
-}
+import type { HeroProps } from "@/types";
 
 const Hero: FC<HeroProps> = ({
   title,

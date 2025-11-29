@@ -16,58 +16,13 @@ import {
   fallbackProjects,
   fallbackTestimonials,
 } from "@/lib/fallbackData";
-
-interface AboutSectionData {
-  title: string;
-  subtitle?: string;
-  description: string;
-  image?: any;
-  imageAlt?: string;
-  stats?: Array<{
-    value: string;
-    label: string;
-  }>;
-  cta?: {
-    text: string;
-    href: string;
-  };
-  imagePosition?: "left" | "right";
-}
-
-interface ProcessSectionData {
-  title: string;
-  subtitle?: string;
-  steps: Array<{
-    number: string;
-    icon: string;
-    title: string;
-    description: string;
-  }>;
-}
-
-interface Service {
-  title: string;
-  description: string;
-  icon?: string;
-}
-
-interface Project {
-  title: string;
-  description: string;
-  image?: any;
-  slug: string;
-  technologies?: Array<{ technology: string; id?: string }>;
-  category?: string;
-  featured?: boolean;
-}
-
-interface Testimonial {
-  quote: string;
-  author: string;
-  role: string;
-  company: string;
-  avatar?: any;
-}
+import type {
+  AboutSectionData,
+  ProcessSectionData,
+  Service,
+  Project,
+  Testimonial,
+} from "@/types";
 
 // Enable ISR with on-demand revalidation for performance
 export const revalidate = 3600; // Cache for 1 hour, revalidate on-demand via webhook

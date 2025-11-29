@@ -1,18 +1,7 @@
-import { FC, ReactNode } from "react";
+import { FC } from "react";
 import clsx from "clsx";
 import { getIconByName } from "./icons";
-
-interface IconCardProps {
-  icon: ReactNode | string;
-  title: string;
-  description: string;
-  link?: {
-    text: string;
-    href: string;
-  };
-  variant?: "default" | "glass" | "bordered";
-  className?: string;
-}
+import type { IconCardProps } from "@/types";
 
 const IconCard: FC<IconCardProps> = ({
   icon,

@@ -3,39 +3,7 @@
 import { FC, useState } from "react";
 import SectionContainer from "@/ui/SectionContainer";
 import CTAButton from "@/ui/CTAButton";
-
-interface CompanyInfo {
-  email?: string;
-  phone?: string;
-  phoneHref?: string;
-  address?: {
-    street?: string;
-    city?: string;
-    state?: string;
-    zip?: string;
-  };
-  socialMedia?: {
-    github?: string;
-    linkedin?: string;
-    instagram?: string;
-  };
-}
-
-interface ContactData {
-  title?: string;
-  nameLabel?: string;
-  namePlaceholder?: string;
-  emailLabel?: string;
-  emailPlaceholder?: string;
-  messageLabel?: string;
-  messagePlaceholder?: string;
-  submitButtonText?: string;
-}
-
-interface ContactSectionProps {
-  contactData?: ContactData;
-  companyInfo?: CompanyInfo;
-}
+import type { ContactSectionProps } from "@/types";
 
 const ContactSection: FC<ContactSectionProps> = ({
   contactData,

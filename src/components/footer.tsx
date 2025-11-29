@@ -3,37 +3,7 @@ import Link from "next/link";
 import { navLinkList } from "@/constants/navLinks";
 import { FC } from "react";
 import { Logo } from "@/ui/icons/logo";
-
-interface CompanyInfo {
-  companyName?: string;
-  tagline?: string;
-  email?: string;
-  phone?: string;
-  phoneHref?: string;
-  socialMedia?: {
-    github?: string;
-    linkedin?: string;
-    twitter?: string;
-  };
-}
-
-interface FooterData {
-  services?: Array<{
-    label: string;
-    href: string;
-  }>;
-  showQuickLinks?: boolean;
-  legalLinks?: Array<{
-    label: string;
-    href: string;
-  }>;
-  copyrightText?: string;
-}
-
-interface FooterProps {
-  footerData?: FooterData;
-  companyInfo?: CompanyInfo;
-}
+import type { FooterProps } from "@/types";
 
 const Footer: FC<FooterProps> = ({ footerData, companyInfo }) => {
   const currentYear = new Date().getFullYear();
