@@ -3,7 +3,7 @@
 import { useTheme } from "next-themes";
 import { useEffect, useState } from "react";
 import Image from "next/image";
-import type { LogoProps } from "@/types";
+import type { LogoProps } from "@/types/ui";
 
 const Logo = ({
   width = 183,
