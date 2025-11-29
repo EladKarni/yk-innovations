@@ -3,6 +3,7 @@ import SectionContainer from "@/ui/SectionContainer";
 import { getPayload } from "payload";
 import config from "@/payload.config";
 import { draftMode } from "next/headers";
+import { fallbackProjectsPageData } from "@/lib/fallbackData";
 
 // Enable ISR with on-demand revalidation for performance
 export const revalidate = 3600; // Cache for 1 hour, revalidate on-demand via webhook
@@ -20,23 +21,48 @@ interface Project {
   updatedAt: string;
 }
 
+interface PageHeader {
+  label?: string;
+  title?: string;
+  description?: string;
+}
+
+interface ProjectsSectionData {
+  title?: string;
+  pageHeader?: PageHeader;
+}
+
 export default async function ProjectsPage() {
   // Fetch projects from CMS
   let projects: Project[] = [];
+  let sectionData: ProjectsSectionData = fallbackProjectsPageData;
 
   const { isEnabled: isDraftMode } = await draftMode();
 
   try {
     const payload = await getPayload({ config });
-    const result = await payload.find({
-      collection: "projects",
-      draft: isDraftMode,
-      limit: 100, // Get all projects
-    });
-    projects = result.docs as unknown as Project[];
+
+    // Fetch projects and section data in parallel
+    const [projectsResult, projectsSectionData] = await Promise.all([
+      payload.find({
+        collection: "projects",
+        draft: isDraftMode,
+        limit: 100, // Get all projects
+      }),
+      payload.findGlobal({
+        slug: "projects-section",
+        draft: isDraftMode,
+      }),
+    ]);
+
+    projects = projectsResult.docs as unknown as Project[];
+    sectionData = projectsSectionData as unknown as ProjectsSectionData;
   } catch (error) {
-    console.warn("Failed to fetch projects from CMS:", error);
+    console.warn("Failed to fetch data from CMS:", error);
   }
+
+  // Extract page header data with fallbacks
+  const pageHeader = sectionData?.pageHeader || fallbackProjectsPageData.pageHeader;
 
   // Extract unique categories from projects
   const categories = ["All", ...Array.from(new Set(projects.map(p => p.category).filter(Boolean)))];
@@ -46,13 +72,13 @@ export default async function ProjectsPage() {
       <SectionContainer sectionName="all-projects" background="base" noPadding={false}>
         <div className="text-center mb-16">
           <p className="text-primary font-semibold text-sm md:text-base uppercase tracking-wider mb-2">
-            Portfolio
+            {pageHeader.label}
           </p>
           <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-base-content mb-6">
-            Our Projects
+            {pageHeader.title}
           </h1>
           <p className="text-lg md:text-xl text-base-content/70 max-w-3xl mx-auto">
-            Explore our portfolio of prototyping and engineering projects across various industries. Each prototype demonstrates our expertise in bringing product concepts to reality.
+            {pageHeader.description}
           </p>
         </div>
 
@@ -62,11 +88,10 @@ export default async function ProjectsPage() {
             {categories.map((category) => (
               <div
                 key={category}
-                className={`px-6 py-2 rounded-full font-medium ${
-                  category === "All"
+                className={`px-6 py-2 rounded-full font-medium ${category === "All"
                     ? "bg-primary text-primary-content"
                     : "bg-base-200 text-base-content"
-                }`}
+                  }`}
               >
                 {category}
               </div>

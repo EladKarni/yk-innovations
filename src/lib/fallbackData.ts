@@ -32,6 +32,16 @@ export const fallbackAboutData = {
   imagePosition: "right" as const,
 };
 
+export const fallbackProjectsPageData = {
+  title: "Featured Developments",
+  pageHeader: {
+    label: "Portfolio",
+    title: "Our Projects",
+    description:
+      "Explore our portfolio of prototyping and engineering projects across various industries. Each prototype demonstrates our expertise in bringing product concepts to reality.",
+  },
+};
+
 export const fallbackProcessData = {
   title: "Our Process",
   subtitle: "From Concept to Production",
