@@ -112,7 +112,7 @@ export const fallbackServices = [
     title: "Rapid Prototyping",
     description:
       "Fast, functional prototypes using 3D printing, CNC machining, and modular electronics. From concept to working model in months, not years.",
-    icon: "printer",
+    icon: "triangle-ruler",
   },
 ];
 

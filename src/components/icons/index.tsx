@@ -166,6 +166,23 @@ export const RulerIcon: FC<IconProps> = ({ className = "w-12 h-12", ...props }) 
   </svg>
 );
 
+export const TriangleRulerIcon: FC<IconProps> = ({ className = "w-12 h-12", ...props }) => (
+  <svg className={className} fill="none" stroke="currentColor" viewBox="0 0 24 24" {...props}>
+    <path
+      strokeLinecap="round"
+      strokeLinejoin="round"
+      strokeWidth={2}
+      d="M3 21L3 3L21 21L3 21Z"
+    />
+    <path
+      strokeLinecap="round"
+      strokeLinejoin="round"
+      strokeWidth={2}
+      d="M3 15h6M3 11h10M3 7h14"
+    />
+  </svg>
+);
+
 export const CodeBracketsIcon: FC<IconProps> = ({ className = "w-12 h-12", ...props }) => (
   <svg className={className} fill="none" stroke="currentColor" viewBox="0 0 24 24" {...props}>
     <path
@@ -267,6 +284,7 @@ export const getIconByName = (name: string, className?: string) => {
     clipboard: ClipboardIcon,
     chip: ChipIcon,
     ruler: RulerIcon,
+    'triangle-ruler': TriangleRulerIcon,
     'code-brackets': CodeBracketsIcon,
 
     // Contact Icons
