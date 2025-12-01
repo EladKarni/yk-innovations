@@ -25,6 +25,7 @@ export default async function ProjectsPage() {
         collection: "projects",
         draft: isDraftMode,
         limit: 100, // Get all projects
+        sort: "createdAt", // Oldest first (ascending)
       }),
       payload.findGlobal({
         slug: "projects-section",
