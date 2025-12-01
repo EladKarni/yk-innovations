@@ -46,7 +46,7 @@ const ContactSection: FC<ContactSectionProps> = ({
     setErrorMessage("");
 
     try {
-      const response = await fetch("/api/contact", {
+      const response = await fetch("/api/contact-form", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
