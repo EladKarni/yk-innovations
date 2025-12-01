@@ -39,16 +39,33 @@ const ContactSection: FC<ContactSectionProps> = ({
   });
   const [status, setStatus] = useState<"idle" | "loading" | "success" | "error">("idle");
 
-  const handleSubmit = async (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     setStatus("loading");
 
-    // Simulate form submission
-    setTimeout(() => {
-      setStatus("success");
-      setFormData({ name: "", email: "", phone: "", message: "" });
-      setTimeout(() => setStatus("idle"), 3000);
-    }, 1500);
+    try {
+      const form = e.currentTarget;
+      const formDataToSend = new FormData(form);
+
+      const response = await fetch("/", {
+        method: "POST",
+        headers: { "Content-Type": "application/x-www-form-urlencoded" },
+        body: new URLSearchParams(formDataToSend as any).toString(),
+      });
+
+      if (response.ok) {
+        setStatus("success");
+        setFormData({ name: "", email: "", phone: "", message: "" });
+        setTimeout(() => setStatus("idle"), 5000);
+      } else {
+        setStatus("error");
+        setTimeout(() => setStatus("idle"), 5000);
+      }
+    } catch (error) {
+      console.error("Form submission error:", error);
+      setStatus("error");
+      setTimeout(() => setStatus("idle"), 5000);
+    }
   };
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
@@ -76,7 +93,24 @@ const ContactSection: FC<ContactSectionProps> = ({
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-12">
           {/* Contact Form */}
           <div className="bg-white/60 dark:bg-base-200/60 backdrop-blur-sm border border-gray-300 dark:border-base-300 rounded-lg p-8">
-            <form onSubmit={handleSubmit} className="space-y-6">
+            <form
+              name="contact"
+              method="POST"
+              data-netlify="true"
+              data-netlify-honeypot="bot-field"
+              onSubmit={handleSubmit}
+              className="space-y-6"
+            >
+              {/* Hidden input for Netlify Forms */}
+              <input type="hidden" name="form-name" value="contact" />
+
+              {/* Honeypot field for spam protection */}
+              <div style={{ display: "none" }}>
+                <label>
+                  Don't fill this out if you're human: <input name="bot-field" />
+                </label>
+              </div>
+
               <div>
                 <label htmlFor="name" className="block text-sm font-semibold text-base-content mb-2">
                   {nameLabel} <span className="text-error">*</span>
