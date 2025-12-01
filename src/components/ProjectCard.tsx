@@ -18,7 +18,7 @@ const ProjectCard: FC<ProjectCardProps> = ({
     <Link href={`/projects/${slug}`} className="group block">
       <article
         className={clsx(
-          "relative h-full rounded-lg overflow-hidden transition-all duration-300",
+          "relative h-full rounded-lg overflow-hidden transition-all duration-300 flex flex-col",
           glassMorphism
             ? "bg-white/60 dark:bg-base-200/60 backdrop-blur-sm border border-gray-300 dark:border-base-300"
             : "bg-base-100 border border-base-300",
@@ -43,12 +43,12 @@ const ProjectCard: FC<ProjectCardProps> = ({
         </div>
 
         {/* Content */}
-        <div className="p-6">
+        <div className="p-6 flex flex-col flex-grow">
           <h3 className="text-xl md:text-2xl font-bold text-base-content mb-2 group-hover:text-primary transition-colors duration-300">
             {title}
           </h3>
 
-          <p className="text-base-content/70 mb-4 line-clamp-3 leading-relaxed">
+          <p className="text-base-content/70 mb-4 line-clamp-3 leading-relaxed flex-grow">
             {description}
           </p>
 
