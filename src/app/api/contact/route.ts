@@ -50,8 +50,8 @@ export async function POST(request: Request) {
 
     // Send email to site owner
     const { error } = await resend.emails.send({
-      from: "YK Innovations <onboarding@resend.dev>", // Update with your verified domain
-      to: process.env.CONTACT_EMAIL || "contact@ykinnovations.com",
+      from: "YK Innovations <onboarding@resend.dev>",
+      to: "yalon.karni@gmail.com", // Must match your Resend signup email when using onboarding@resend.dev
       replyTo: body.email,
       subject: `New Contact Form Submission from ${body.name}`,
       html: `
