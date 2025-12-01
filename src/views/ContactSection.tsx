@@ -46,17 +46,17 @@ const ContactSection: FC<ContactSectionProps> = ({
     setErrorMessage("");
 
     try {
-      const response = await fetch("/api/contact-form", {
+      const form = e.currentTarget;
+      const formDataToSend = new FormData(form);
+
+      const response = await fetch("/", {
         method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(formData),
+        headers: { "Content-Type": "application/x-www-form-urlencoded" },
+        body: new URLSearchParams(formDataToSend as any).toString(),
       });
 
       if (!response.ok) {
-        const data = await response.json();
-        throw new Error(data.error || "Failed to send message");
+        throw new Error("Failed to send message");
       }
 
       setStatus("success");
