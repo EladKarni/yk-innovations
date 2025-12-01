@@ -108,7 +108,7 @@ const ContactSection: FC<ContactSectionProps> = ({
               {/* Honeypot field for spam protection */}
               <div style={{ display: "none" }}>
                 <label>
-                  Don't fill this out if you're human: <input name="bot-field" />
+                  Don&apos;t fill this out if you&apos;re human: <input name="bot-field" />
                 </label>
               </div>
 
