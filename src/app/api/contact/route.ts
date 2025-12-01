@@ -9,9 +9,27 @@ interface ContactFormData {
 }
 
 export async function POST(request: Request) {
+  console.log("Contact API: Request received");
+
   try {
+    // Check if API key exists
+    if (!process.env.RESEND_API_KEY) {
+      console.error("Contact API: RESEND_API_KEY is not set");
+      return NextResponse.json(
+        { error: "Server configuration error: Missing API key" },
+        { status: 500 }
+      );
+    }
+
+    console.log("Contact API: API key exists, initializing Resend");
     const resend = new Resend(process.env.RESEND_API_KEY);
+
+    console.log("Contact API: Parsing request body");
     const body: ContactFormData = await request.json();
+    console.log("Contact API: Body parsed", {
+      name: body.name,
+      email: body.email,
+    });
 
     // Validate required fields
     if (!body.name || !body.email || !body.message) {
@@ -78,7 +96,10 @@ export async function POST(request: Request) {
   } catch (error) {
     console.error("Contact form error:", error);
     return NextResponse.json(
-      { error: "Internal server error" },
+      {
+        error: "Internal server error",
+        details: error instanceof Error ? error.message : String(error),
+      },
       { status: 500 }
     );
   }
