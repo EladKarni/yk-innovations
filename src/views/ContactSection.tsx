@@ -38,32 +38,33 @@ const ContactSection: FC<ContactSectionProps> = ({
     message: "",
   });
   const [status, setStatus] = useState<"idle" | "loading" | "success" | "error">("idle");
+  const [errorMessage, setErrorMessage] = useState<string>("");
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     setStatus("loading");
+    setErrorMessage("");
 
     try {
-      const form = e.currentTarget;
-      const formDataToSend = new FormData(form);
-
-      const response = await fetch("/", {
+      const response = await fetch("/api/contact-form", {
         method: "POST",
-        headers: { "Content-Type": "application/x-www-form-urlencoded" },
-        body: new URLSearchParams(formDataToSend as any).toString(),
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(formData),
       });
 
-      if (response.ok) {
-        setStatus("success");
-        setFormData({ name: "", email: "", phone: "", message: "" });
-        setTimeout(() => setStatus("idle"), 5000);
-      } else {
-        setStatus("error");
-        setTimeout(() => setStatus("idle"), 5000);
+      if (!response.ok) {
+        const data = await response.json();
+        throw new Error(data.error || "Failed to send message");
       }
+
+      setStatus("success");
+      setFormData({ name: "", email: "", phone: "", message: "" });
+      setTimeout(() => setStatus("idle"), 5000);
     } catch (error) {
-      console.error("Form submission error:", error);
       setStatus("error");
+      setErrorMessage(error instanceof Error ? error.message : "Something went wrong. Please try again.");
       setTimeout(() => setStatus("idle"), 5000);
     }
   };
@@ -182,7 +183,7 @@ const ContactSection: FC<ContactSectionProps> = ({
 
               {status === "error" && (
                 <div className="bg-error/10 border border-error text-error px-4 py-3 rounded-lg">
-                  Something went wrong. Please try again.
+                  {errorMessage || "Something went wrong. Please try again."}
                 </div>
               )}
 
