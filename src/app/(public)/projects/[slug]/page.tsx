@@ -6,6 +6,7 @@ import { getPayload } from "payload";
 import config from "@/payload.config";
 import { draftMode } from "next/headers";
 import { ReactElement } from "react";
+import ProjectGallery from "@/components/ProjectGallery";
 
 // Helper to render Lexical rich text to React elements
 function renderRichText(richText: any): ReactElement {
@@ -285,18 +286,7 @@ export default async function ProjectPage({ params }: ProjectPageProps) {
       {galleryUrls.length > 0 && (
         <SectionContainer sectionName="project-gallery" background="alt">
           <h2 className="text-3xl font-bold text-base-content mb-8 text-center">Project Gallery</h2>
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-            {galleryUrls.map((imageUrl: string, index: number) => (
-              <div key={index} className="relative h-64 rounded-lg overflow-hidden group">
-                <Image
-                  src={imageUrl}
-                  alt={`${project.title} gallery image ${index + 1}`}
-                  fill
-                  className="object-cover transition-transform duration-300 group-hover:scale-110"
-                />
-              </div>
-            ))}
-          </div>
+          <ProjectGallery images={galleryUrls} projectTitle={project.title} />
         </SectionContainer>
       )}
 
