@@ -38,17 +38,35 @@ const ContactSection: FC<ContactSectionProps> = ({
     message: "",
   });
   const [status, setStatus] = useState<"idle" | "loading" | "success" | "error">("idle");
+  const [errorMessage, setErrorMessage] = useState<string>("");
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setStatus("loading");
+    setErrorMessage("");
 
-    // Simulate form submission
-    setTimeout(() => {
+    try {
+      const response = await fetch("/api/contact", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(formData),
+      });
+
+      if (!response.ok) {
+        const data = await response.json();
+        throw new Error(data.error || "Failed to send message");
+      }
+
       setStatus("success");
       setFormData({ name: "", email: "", phone: "", message: "" });
-      setTimeout(() => setStatus("idle"), 3000);
-    }, 1500);
+      setTimeout(() => setStatus("idle"), 5000);
+    } catch (error) {
+      setStatus("error");
+      setErrorMessage(error instanceof Error ? error.message : "Something went wrong. Please try again.");
+      setTimeout(() => setStatus("idle"), 5000);
+    }
   };
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
@@ -148,7 +166,7 @@ const ContactSection: FC<ContactSectionProps> = ({
 
               {status === "error" && (
                 <div className="bg-error/10 border border-error text-error px-4 py-3 rounded-lg">
-                  Something went wrong. Please try again.
+                  {errorMessage || "Something went wrong. Please try again."}
                 </div>
               )}
 
