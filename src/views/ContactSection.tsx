@@ -46,7 +46,7 @@ const ContactSection: FC<ContactSectionProps> = ({
     setErrorMessage("");
 
     try {
-      const response = await fetch("/__forms.html", {
+      const response = await fetch("/_forms.html", {
         method: "POST",
         headers: { "Content-Type": "application/x-www-form-urlencoded" },
         body: new URLSearchParams({
