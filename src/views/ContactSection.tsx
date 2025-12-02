@@ -49,12 +49,12 @@ const ContactSection: FC<ContactSectionProps> = ({
       const form = e.currentTarget;
       const formDataToSend = new FormData(form);
 
-      const response = await fetch("__form.html", {
-      method: "POST",
-      headers: { "Content-Type": "application/x-www-form-urlencoded" },
-      // @ts-ignore
-      body: new URLSearchParams(formData).toString(),
-    })
+      const response = await fetch("__forms.html", {
+        method: "POST",
+        headers: { "Content-Type": "application/x-www-form-urlencoded" },
+        // @ts-ignore
+        body: new URLSearchParams(formData).toString(),
+      })
 
       if (!response.ok) {
         throw new Error("Failed to send message");
