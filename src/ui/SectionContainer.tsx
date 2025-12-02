@@ -21,7 +21,7 @@ const SectionContainer = ({
     <section
       id={sectionName}
       className={cn(
-        "w-full scroll-mt-36",
+        "w-full scroll-mt-22",
         !noPadding && "py-16 md:py-24 lg:py-32",
         backgroundClasses[background],
         sectionClasses

@@ -46,7 +46,7 @@ export default async function ProjectsPage() {
   const categories = ["All", ...Array.from(new Set(projects.map(p => p.category).filter(Boolean)))];
 
   return (
-    <main className="min-h-screen pt-24">
+    <main className="min-h-screen pt-28">
       <SectionContainer sectionName="all-projects" background="base" noPadding={false}>
         <div className="text-center mb-16">
           <p className="text-primary font-semibold text-sm md:text-base uppercase tracking-wider mb-2">
