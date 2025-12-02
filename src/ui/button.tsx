@@ -1,9 +1,5 @@
 import Link from "next/link";
-
-interface ButtonProps {
-  children: React.ReactNode;
-  link: string;
-}
+import type { ButtonProps } from "@/types";
 
 const Button = ({ children, link }: ButtonProps) => {
   return (

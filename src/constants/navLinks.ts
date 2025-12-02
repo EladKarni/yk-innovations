@@ -10,9 +10,9 @@ export const navLinkList = [
     url: "#about",
   },
   {
-    label: "Projects",
+    label: "Solutions",
     style: "default",
-    url: "#projects",
+    url: "#solutions",
   },
   {
     label: "Contact",

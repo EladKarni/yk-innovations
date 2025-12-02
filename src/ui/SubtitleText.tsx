@@ -1,16 +1,11 @@
 import { cn } from "@/util/utils";
-
-type SubtitleTextPropsProps = {
-  children: React.ReactNode;
-  DarkMode?: boolean;
-  sectionClasses?: string;
-};
+import type { SubtitleTextProps } from "@/types";
 
 const SubtitleText = ({
   children,
   DarkMode,
   sectionClasses,
-}: SubtitleTextPropsProps) => {
+}: SubtitleTextProps) => {
   return (
     <h2
       className={cn(
