@@ -15,9 +15,14 @@ export const navLinkList = [
     url: "/#projects",
   },
   {
-    label: "Solutions",
+    label: "Services",
     style: "default",
-    url: "/#solutions",
+    url: "/#services",
+  },
+  {
+    label: "Process",
+    style: "default",
+    url: "/#process",
   },
   {
     label: "Contact",
