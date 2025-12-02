@@ -7,21 +7,21 @@ export const navLinkList = [
   {
     label: "About",
     style: "default",
-    url: "#about",
+    url: "/#about",
   },
   {
     label: "Projects",
     style: "default",
-    url: "#projects",
+    url: "/#projects",
   },
   {
     label: "Solutions",
     style: "default",
-    url: "#solutions",
+    url: "/#solutions",
   },
   {
     label: "Contact",
     style: "default",
-    url: "#contact",
+    url: "/#contact",
   },
 ];

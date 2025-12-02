@@ -2,6 +2,7 @@ import { useState } from "react";
 import { navLinkList } from "@/constants/navLinks";
 import ThemeToggle from "./ThemeToggle";
 import CTAButton from "@/ui/CTAButton";
+import Link from "next/link";
 
 const MobileNavMenu = () => {
     const [isOpenMobileMenu, setIsOpenMobileMenu] = useState(false);
@@ -59,13 +60,13 @@ const MobileNavMenu = () => {
                         <ul className="text-center text-off-white flex-1">
                             {navLinkList.map((navLink) => (
                                 <li key={navLink.label}>
-                                    <a
+                                    <Link
                                         onClick={() => setIsOpenMobileMenu(false)}
                                         className="block px-5 py-3.5 text-base-content hover:text-primary"
                                         href={navLink.url}
                                     >
                                         {navLink.label}
-                                    </a>
+                                    </Link>
                                 </li>
                             ))}
                         </ul>
