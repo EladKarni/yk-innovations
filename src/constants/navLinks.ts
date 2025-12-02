@@ -10,6 +10,11 @@ export const navLinkList = [
     url: "#about",
   },
   {
+    label: "Projects",
+    style: "default",
+    url: "#projects",
+  },
+  {
     label: "Solutions",
     style: "default",
     url: "#solutions",
