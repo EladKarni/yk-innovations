@@ -25,6 +25,10 @@ import { CompanyInfo } from "./globals/CompanyInfo";
 const filename = fileURLToPath(import.meta.url);
 const dirname = path.dirname(filename);
 
+if (!process.env.PAYLOAD_SECRET) {
+  throw new Error('PAYLOAD_SECRET environment variable is required')
+}
+
 export default buildConfig({
   admin: {
     user: "users",
@@ -55,7 +59,7 @@ export default buildConfig({
     CompanyInfo,
   ],
   editor: lexicalEditor({}),
-  secret: process.env.PAYLOAD_SECRET || "dev-secret-key-change-in-production",
+  secret: process.env.PAYLOAD_SECRET,
   typescript: {
     outputFile: path.resolve(dirname, "../payload-types.ts"),
   },

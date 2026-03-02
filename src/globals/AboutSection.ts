@@ -15,7 +15,7 @@ export const AboutSection: GlobalConfig = {
   },
   access: {
     read: () => true,
-    update: () => true,
+    update: ({ req: { user } }) => !!user,
   },
   fields: [
     {
