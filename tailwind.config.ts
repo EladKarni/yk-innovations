@@ -12,7 +12,7 @@ const config: Config = {
     themes: [
       {
         light: {
-          primary: "#1f2937",
+          primary: "#0693e3",
           "primary-content": "#ffffff",
           secondary: "#3b82f6",
           "secondary-content": "#ffffff",

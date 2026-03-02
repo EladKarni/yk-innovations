@@ -13,8 +13,8 @@ export const fallbackHeroData = {
     text: "View Our Work",
     href: "/projects",
   },
-  backgroundImage: "https://picsum.photos/1920/1080?random=1",
-  backgroundVideo: "",
+  backgroundImage: "/hero.webp",
+  backgroundVideo: null,
   overlay: true,
   overlayOpacity: 0.5,
 };

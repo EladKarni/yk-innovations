@@ -20,19 +20,6 @@ const Hero: FC<HeroProps> = ({
 }) => {
   return (
     <section className={clsx("relative min-h-[600px] md:min-h-[700px] lg:min-h-[800px] flex items-center justify-center overflow-hidden", className)}>
-      {/* Background Image */}
-      {backgroundImage && (
-        <Image
-          src={backgroundImage}
-          alt={backgroundImageAlt}
-          fill
-          priority
-          quality={85}
-          sizes="100vw"
-          className="object-cover object-center"
-        />
-      )}
-
       {/* Background Video */}
       {backgroundVideo && (
         <video
@@ -40,9 +27,9 @@ const Hero: FC<HeroProps> = ({
           loop
           muted
           playsInline
-          className="absolute inset-0 w-full h-full object-cover"
+          className="absolute inset-0 w-full h-full object-center object-cover"
         >
-          <source src={backgroundVideo} type="video/mp4" />
+          <source src="/hero-bg-video.webm" type="video/webm" />
         </video>
       )}
 
