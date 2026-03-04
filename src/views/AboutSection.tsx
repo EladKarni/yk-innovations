@@ -28,7 +28,7 @@ const AboutSection: FC<AboutSectionProps> = ({ data }) => {
     : "YK Innovations mechanical engineering and prototyping workspace";
 
   return (
-    <SectionContainer sectionName="about" background="alt">
+    <SectionContainer sectionName="about" background="bg-base-100">
       <div className={`grid grid-cols-1 lg:grid-cols-2 gap-12 items-center ${imagePosition === "left" ? "lg:flex-row-reverse" : ""}`}>
         {/* Content */}
         <div className={imagePosition === "left" ? "lg:order-2" : ""}>

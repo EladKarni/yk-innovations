@@ -101,11 +101,12 @@ export const HeroSection: GlobalConfig = {
     },
     {
       name: "backgroundVideo",
-      type: "text",
-      label: "Background Video URL",
+      type: "upload",
+      label: "Background Video",
+      relationTo: "media",
       required: false,
       admin: {
-        description: "URL to background video (optional, overrides image if provided)",
+        description: "Upload a background video (mp4 or webm). Overrides background image if provided.",
       },
     },
     {

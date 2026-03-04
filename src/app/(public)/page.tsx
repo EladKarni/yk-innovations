@@ -84,6 +84,12 @@ export default async function Home() {
       ? (heroData.backgroundImage as any).url
       : heroData.backgroundImage;
 
+  // Extract background video URL if it's a Media object
+  const backgroundVideo =
+    typeof heroData.backgroundVideo === "object" && heroData.backgroundVideo !== null
+      ? (heroData.backgroundVideo as any).url
+      : heroData.backgroundVideo;
+
   return (
     <main className="min-h-screen">
       {/* Hero Section - Data from CMS */}
@@ -94,7 +100,7 @@ export default async function Home() {
         primaryCTA={heroData.primaryCTA as any}
         secondaryCTA={heroData.secondaryCTA as any}
         backgroundImage={backgroundImage}
-        backgroundVideo={(heroData.backgroundVideo as string) || "/hero-bg-video.webm"}
+        backgroundVideo={backgroundVideo || "/hero-bg-video.webm"}
         overlay={heroData.overlay as boolean}
         overlayOpacity={heroData.overlayOpacity as number}
         scrollIndicator={heroData.scrollIndicator as boolean}
