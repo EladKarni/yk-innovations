@@ -14,7 +14,7 @@ export const fallbackHeroData = {
     href: "/projects",
   },
   backgroundImage: "/hero.webp",
-  backgroundVideo: null,
+  backgroundVideo: "/hero-bg-video.webm",
   overlay: true,
   overlayOpacity: 0.5,
 };

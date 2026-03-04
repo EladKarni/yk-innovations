@@ -69,6 +69,7 @@ export default async function PublicLayout({
           <Navbar>
             <NavLinks />
           </Navbar>
+          <div className="h-[100px]" aria-hidden="true" />
           {children}
           <Footer footerData={footerData} companyInfo={companyInfo} />
         </ThemeProvider>

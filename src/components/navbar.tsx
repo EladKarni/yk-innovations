@@ -15,8 +15,10 @@ const NavBar: FC<NavBarProps> = ({ children }) => {
   return (
     <header
       className={clsx(
-        "py-5 bg-base-200 h-[100px] sticky top-0 left-0 w-full z-50 duration-200 min-w-[290px]",
-        isMounted && y > 50 && "shadow-primary-900 shadow-md"
+        "fixed top-0 left-0 w-full z-50 h-[100px] py-5 duration-200 min-w-[290px]",
+        isMounted && y > 50
+          ? "bg-base-200/60 backdrop-blur-md shadow-primary-900 shadow-md"
+          : "bg-transparent"
       )}
     >
       <div className="h-full flex flex-col justify-center max-w-[1024px] lg:mx-auto mx-4">

@@ -15,11 +15,12 @@ const Hero: FC<HeroProps> = ({
   backgroundVideo,
   overlay = true,
   overlayOpacity = 40,
+  scrollIndicator = true,
   children,
   className,
 }) => {
   return (
-    <section className={clsx("relative min-h-[600px] md:min-h-[700px] lg:min-h-[800px] flex items-center justify-center overflow-hidden", className)}>
+    <section className={clsx("relative -mt-[100px] min-h-[100dvh] md:min-h-[700px] lg:min-h-[800px] flex items-center justify-center overflow-hidden", className)}>
       {/* Background Video */}
       {backgroundVideo && (
         <video
@@ -82,7 +83,7 @@ const Hero: FC<HeroProps> = ({
       </div>
 
       {/* Scroll Indicator */}
-      <div className="absolute bottom-8 left-1/2 transform -translate-x-1/2 animate-bounce">
+      {scrollIndicator && <div className="absolute bottom-8 left-1/2 transform -translate-x-1/2 animate-bounce">
         <svg
           className="w-6 h-6 text-white/60"
           fill="none"
@@ -96,7 +97,7 @@ const Hero: FC<HeroProps> = ({
             d="M19 14l-7 7m0 0l-7-7m7 7V3"
           />
         </svg>
-      </div>
+      </div>}
     </section>
   );
 };

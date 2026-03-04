@@ -39,6 +39,7 @@ export interface HeroProps {
   backgroundVideo?: string;
   overlay?: boolean;
   overlayOpacity?: number;
+  scrollIndicator?: boolean;
   children?: ReactNode;
   className?: string;
 }

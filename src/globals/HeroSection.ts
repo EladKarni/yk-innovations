@@ -128,5 +128,14 @@ export const HeroSection: GlobalConfig = {
         description: "Overlay opacity percentage (0-100)",
       },
     },
+    {
+      name: "scrollIndicator",
+      type: "checkbox",
+      label: "Show Scroll Indicator",
+      defaultValue: true,
+      admin: {
+        description: "Show the animated scroll arrow at the bottom of the hero",
+      },
+    },
   ],
 };

@@ -94,9 +94,10 @@ export default async function Home() {
         primaryCTA={heroData.primaryCTA as any}
         secondaryCTA={heroData.secondaryCTA as any}
         backgroundImage={backgroundImage}
-        backgroundVideo={heroData.backgroundVideo as string}
+        backgroundVideo={(heroData.backgroundVideo as string) || "/hero-bg-video.webm"}
         overlay={heroData.overlay as boolean}
         overlayOpacity={heroData.overlayOpacity as number}
+        scrollIndicator={heroData.scrollIndicator as boolean}
       />
 
       {/* About Section - Data from CMS */}
