@@ -53,6 +53,7 @@ export type LogoProps = {
   height?: number;
   priority?: boolean;
   className?: string;
+  forceWhite?: boolean;
 };
 
 export type MailIconProps = {

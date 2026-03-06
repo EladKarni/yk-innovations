@@ -10,6 +10,7 @@ const Logo = ({
   height = 50,
   priority = false,
   className = "",
+  forceWhite = false,
 }: LogoProps) => {
   const { theme, systemTheme } = useTheme();
   const [mounted, setMounted] = useState(false);
@@ -29,7 +30,7 @@ const Logo = ({
   }
 
   const currentTheme = theme === "system" ? systemTheme : theme;
-  const shouldInvert = currentTheme === "dark";
+  const shouldInvert = forceWhite || currentTheme === "dark";
 
   return (
     <Image
