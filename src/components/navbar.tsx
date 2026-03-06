@@ -31,7 +31,7 @@ const NavBar: FC<NavBarProps> = ({ children }) => {
             </Link>
           </div>
           {children}
-          <MobileNavMenu />
+          <MobileNavMenu hasScrolled={isScrolled} />
         </div>
       </div>
     </header>
