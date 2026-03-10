@@ -135,7 +135,7 @@ export default async function Home() {
         primaryCTA={heroData.primaryCTA}
         secondaryCTA={heroData.secondaryCTA}
         backgroundImage={heroData.backgroundImage}
-        backgroundVideo={heroData.backgroundVideo}
+        backgroundVideo={heroData.backgroundVideo || "/hero-bg-video.webm"}
         overlay={heroData.overlay}
         overlayOpacity={heroData.overlayOpacity}
         scrollIndicator={heroData.scrollIndicator}
