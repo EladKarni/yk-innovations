@@ -7,7 +7,7 @@ interface ProjectHeroProps {
 
 export default function ProjectHero({ title, imageUrl }: ProjectHeroProps) {
   return (
-    <section className="relative h-[800px] md:h-[900px] bg-base-200 -mt-[100px] pt-[100px]">
+    <section className="relative h-[800px] md:h-[900px] bg-base-200 -mt-[100px]">
       <div className="relative w-full h-full">
         <Image src={imageUrl} alt={title} fill className="object-cover" priority />
         <div className="absolute inset-0 bg-black/50" />

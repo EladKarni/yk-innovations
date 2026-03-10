@@ -3,7 +3,6 @@ import AboutSection from "@/views/AboutSection";
 import ServicesSection from "@/views/ServicesSection";
 import ProcessSection from "@/views/ProcessSection";
 import FeaturedProjectsSection from "@/views/FeaturedProjectsSection";
-import TestimonialsSection from "@/views/TestimonialsSection";
 import ContactSection from "@/views/ContactSection";
 import { getPayload } from "payload";
 import config from "@/payload.config";
@@ -14,32 +13,55 @@ import {
   fallbackProcessData,
   fallbackServices,
   fallbackProjects,
-  fallbackTestimonials,
+  fallbackContactData,
+  fallbackCompanyInfo,
+  fallbackProjectsSection,
 } from "@/lib/fallbackData";
+import {
+  mapHeroSection,
+  mapAboutSection,
+  mapProcessSection,
+  mapProjectsSection,
+  mapContactSection,
+  mapCompanyInfo,
+  mapService,
+  mapProject,
+} from "@/lib/cmsMappers";
 import type {
   AboutSectionData,
   ProcessSectionData,
   Service,
   Project,
-  Testimonial,
   ContactData,
   CompanyInfo,
 } from "@/types";
+import type { HeroProps } from "@/types/components";
 
 // Enable ISR with on-demand revalidation for performance
 export const revalidate = 3600; // Cache for 1 hour, revalidate on-demand via webhook
 
+type HeroMapped = Omit<HeroProps, "children" | "className">;
+
 export default async function Home() {
-  // Try to fetch from CMS, fall back to static data if database is unavailable
-  let heroData: Record<string, unknown>;
-  let aboutData: AboutSectionData;
-  let processData: ProcessSectionData;
-  let projectsSection: { title?: string };
-  let contactSection: ContactData;
-  let companyInfo: CompanyInfo;
-  let services: { docs: Service[] };
-  let projects: { docs: Project[] };
-  let testimonials: { docs: Testimonial[] };
+  // Initialize with fallback data so variables are always assigned
+  let heroData: HeroMapped = {
+    title: fallbackHeroData.title,
+    subtitle: fallbackHeroData.subtitle,
+    description: fallbackHeroData.description,
+    primaryCTA: fallbackHeroData.primaryCTA,
+    secondaryCTA: fallbackHeroData.secondaryCTA,
+    backgroundImage: fallbackHeroData.backgroundImage,
+    backgroundVideo: fallbackHeroData.backgroundVideo,
+    overlay: fallbackHeroData.overlay,
+    overlayOpacity: fallbackHeroData.overlayOpacity,
+  };
+  let aboutData: AboutSectionData = fallbackAboutData;
+  let processData: ProcessSectionData = fallbackProcessData;
+  let projectsSection: { title?: string } = fallbackProjectsSection;
+  let contactSection: ContactData = fallbackContactData;
+  let companyInfo: CompanyInfo = fallbackCompanyInfo;
+  let services: { docs: Service[] } = { docs: fallbackServices };
+  let projects: { docs: Project[] } = { docs: fallbackProjects };
 
   // Check if we're in draft mode for live preview
   const { isEnabled: isDraftMode } = await draftMode();
@@ -48,7 +70,16 @@ export default async function Home() {
     const payload = await getPayload({ config });
 
     // Fetch all CMS data in parallel for better performance
-    [heroData, aboutData, processData, projectsSection, contactSection, companyInfo, services, projects, testimonials] = await Promise.all([
+    const [
+      _hero,
+      _about,
+      _process,
+      _projectsSection,
+      _contact,
+      _companyInfo,
+      _services,
+      _projects,
+    ] = await Promise.all([
       payload.findGlobal({ slug: "hero-section", draft: isDraftMode }),
       payload.findGlobal({ slug: "about-section", draft: isDraftMode }),
       payload.findGlobal({ slug: "process-section", draft: isDraftMode }),
@@ -62,52 +93,35 @@ export default async function Home() {
         limit: 6,
         draft: isDraftMode,
       }),
-      payload.find({
-        collection: "testimonials",
-        where: { featured: { equals: true } },
-        limit: 6,
-        draft: isDraftMode,
-      }),
     ]);
+
+    heroData = mapHeroSection(_hero);
+    aboutData = mapAboutSection(_about);
+    processData = mapProcessSection(_process);
+    projectsSection = mapProjectsSection(_projectsSection);
+    contactSection = mapContactSection(_contact);
+    companyInfo = mapCompanyInfo(_companyInfo);
+    services = { docs: _services.docs.map(mapService) };
+    projects = { docs: _projects.docs.map(mapProject) };
   } catch (error) {
-    // Use fallback data when CMS is unavailable (e.g., during build without database)
+    // Fallback data already initialized above; log the error
     console.warn("CMS unavailable, using fallback data:", error);
-    heroData = fallbackHeroData;
-    aboutData = fallbackAboutData;
-    processData = fallbackProcessData;
-    services = { docs: fallbackServices };
-    projects = { docs: fallbackProjects };
-    testimonials = { docs: fallbackTestimonials };
   }
-
-  // Extract background image URL if it's a Media object
-  const bgImg = heroData.backgroundImage;
-  const backgroundImage =
-    typeof bgImg === "object" && bgImg !== null
-      ? (bgImg as { url?: string }).url
-      : (bgImg as string | undefined);
-
-  // Extract background video URL if it's a Media object
-  const bgVid = heroData.backgroundVideo;
-  const backgroundVideo =
-    typeof bgVid === "object" && bgVid !== null
-      ? (bgVid as { url?: string }).url
-      : (bgVid as string | undefined);
 
   return (
     <main className="min-h-screen">
       {/* Hero Section - Data from CMS */}
       <Hero
-        title={heroData.title as string}
-        subtitle={heroData.subtitle as string}
-        description={heroData.description as string}
-        primaryCTA={heroData.primaryCTA as { text?: string; href?: string }}
-        secondaryCTA={heroData.secondaryCTA as { text?: string; href?: string }}
-        backgroundImage={backgroundImage}
-        backgroundVideo={backgroundVideo || "/hero-bg-video.webm"}
-        overlay={heroData.overlay as boolean}
-        overlayOpacity={heroData.overlayOpacity as number}
-        scrollIndicator={heroData.scrollIndicator as boolean}
+        title={heroData.title}
+        subtitle={heroData.subtitle}
+        description={heroData.description}
+        primaryCTA={heroData.primaryCTA}
+        secondaryCTA={heroData.secondaryCTA}
+        backgroundImage={heroData.backgroundImage}
+        backgroundVideo={heroData.backgroundVideo || "/hero-bg-video.webm"}
+        overlay={heroData.overlay}
+        overlayOpacity={heroData.overlayOpacity}
+        scrollIndicator={heroData.scrollIndicator}
       />
 
       {/* About Section - Data from CMS */}
