@@ -7,7 +7,7 @@ export async function GET(request: Request): Promise<Response> {
   const secret = searchParams.get('secret')
 
   // Validate the preview secret
-  if (secret !== process.env.PAYLOAD_SECRET) {
+  if (secret !== process.env.PREVIEW_SECRET) {
     return new Response('Invalid token', { status: 401 })
   }
 

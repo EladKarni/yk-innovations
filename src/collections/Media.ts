@@ -35,7 +35,7 @@ export const Media: CollectionConfig = {
       type: 'text',
       required: false,
       hooks: {
-        beforeValidate: [
+        beforeChange: [
           (args) => {
             const { value, data } = args
             // Auto-generate alt text from filename if not provided

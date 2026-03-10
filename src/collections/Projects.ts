@@ -1,4 +1,5 @@
 import type { CollectionConfig } from "payload";
+import { revalidatePath } from "next/cache";
 
 export const Projects: CollectionConfig = {
   slug: "projects",
@@ -22,28 +23,11 @@ export const Projects: CollectionConfig = {
   // On-demand revalidation hook for ISR
   hooks: {
     afterChange: [
-      async ({ doc, operation }) => {
+      ({ doc, operation }) => {
         if (operation === 'update' || operation === 'create') {
-          try {
-            const revalidationSecret = process.env.REVALIDATION_SECRET;
-            const serverUrl = process.env.NEXT_PUBLIC_SERVER_URL;
-
-            if (revalidationSecret && serverUrl) {
-              await fetch(`${serverUrl}/api/revalidate`, {
-                method: 'POST',
-                headers: {
-                  'Content-Type': 'application/json',
-                  'Authorization': `Bearer ${revalidationSecret}`,
-                },
-                body: JSON.stringify({
-                  collection: 'projects',
-                  slug: doc.slug,
-                }),
-              });
-            }
-          } catch (error) {
-            console.error('Revalidation failed:', error);
-          }
+          revalidatePath(`/projects/${doc.slug}`)
+          revalidatePath('/projects')
+          revalidatePath('/')
         }
       },
     ],

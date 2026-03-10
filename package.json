@@ -3,12 +3,13 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "dev": "next dev --turbopack",
+    "dev": "next dev",
     "build": "next build",
     "start": "next start",
     "lint": "next lint",
     "db:start": "docker-compose up -d",
-    "db:stop": "docker-compose down"
+    "db:stop": "docker-compose down",
+    "payload": "tsx node_modules/.bin/payload"
   },
   "dependencies": {
     "@payloadcms/db-postgres": "3.63.0",

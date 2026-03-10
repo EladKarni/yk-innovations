@@ -22,6 +22,8 @@ import type {
   Service,
   Project,
   Testimonial,
+  ContactData,
+  CompanyInfo,
 } from "@/types";
 
 // Enable ISR with on-demand revalidation for performance
@@ -29,15 +31,15 @@ export const revalidate = 3600; // Cache for 1 hour, revalidate on-demand via we
 
 export default async function Home() {
   // Try to fetch from CMS, fall back to static data if database is unavailable
-  let heroData: any;
-  let aboutData: any;
-  let processData: any;
-  let projectsSection: any;
-  let contactSection: any;
-  let companyInfo: any;
-  let services: any;
-  let projects: any;
-  let testimonials: any;
+  let heroData: Record<string, unknown>;
+  let aboutData: AboutSectionData;
+  let processData: ProcessSectionData;
+  let projectsSection: { title?: string };
+  let contactSection: ContactData;
+  let companyInfo: CompanyInfo;
+  let services: { docs: Service[] };
+  let projects: { docs: Project[] };
+  let testimonials: { docs: Testimonial[] };
 
   // Check if we're in draft mode for live preview
   const { isEnabled: isDraftMode } = await draftMode();
@@ -79,16 +81,18 @@ export default async function Home() {
   }
 
   // Extract background image URL if it's a Media object
+  const bgImg = heroData.backgroundImage;
   const backgroundImage =
-    typeof heroData.backgroundImage === "object" && heroData.backgroundImage !== null
-      ? (heroData.backgroundImage as any).url
-      : heroData.backgroundImage;
+    typeof bgImg === "object" && bgImg !== null
+      ? (bgImg as { url?: string }).url
+      : (bgImg as string | undefined);
 
   // Extract background video URL if it's a Media object
+  const bgVid = heroData.backgroundVideo;
   const backgroundVideo =
-    typeof heroData.backgroundVideo === "object" && heroData.backgroundVideo !== null
-      ? (heroData.backgroundVideo as any).url
-      : heroData.backgroundVideo;
+    typeof bgVid === "object" && bgVid !== null
+      ? (bgVid as { url?: string }).url
+      : (bgVid as string | undefined);
 
   return (
     <main className="min-h-screen">
@@ -97,8 +101,8 @@ export default async function Home() {
         title={heroData.title as string}
         subtitle={heroData.subtitle as string}
         description={heroData.description as string}
-        primaryCTA={heroData.primaryCTA as any}
-        secondaryCTA={heroData.secondaryCTA as any}
+        primaryCTA={heroData.primaryCTA as { text?: string; href?: string }}
+        secondaryCTA={heroData.secondaryCTA as { text?: string; href?: string }}
         backgroundImage={backgroundImage}
         backgroundVideo={backgroundVideo || "/hero-bg-video.webm"}
         overlay={heroData.overlay as boolean}
@@ -107,19 +111,19 @@ export default async function Home() {
       />
 
       {/* About Section - Data from CMS */}
-      <AboutSection data={aboutData as AboutSectionData} />
+      <AboutSection data={aboutData} />
 
       {/* Featured Projects Section - Data from CMS */}
       <FeaturedProjectsSection
-        data={projects.docs as Project[]}
+        data={projects.docs}
         title={projectsSection?.title}
       />
 
       {/* Services Section - Data from CMS */}
-      <ServicesSection data={services.docs as Service[]} />
+      <ServicesSection data={services.docs} />
 
       {/* Process Section - Data from CMS */}
-      <ProcessSection data={processData as ProcessSectionData} />
+      <ProcessSection data={processData} />
 
       {/* Testimonials Section - Data from CMS */}
       {/* <TestimonialsSection data={testimonials.docs as Testimonial[]} /> */}
