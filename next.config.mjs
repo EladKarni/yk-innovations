@@ -16,6 +16,14 @@ const nextConfig = {
         protocol: 'http',
         hostname: 'localhost',
       },
+      {
+        protocol: 'https',
+        hostname: 'ykinnovations.com',
+      },
+      {
+        protocol: 'https',
+        hostname: 'netlify.app',
+      },
     ],
     dangerouslyAllowSVG: true,
   },
