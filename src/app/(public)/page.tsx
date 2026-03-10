@@ -5,6 +5,7 @@ import ProcessSection from "@/views/ProcessSection";
 import FeaturedProjectsSection from "@/views/FeaturedProjectsSection";
 import ContactSection from "@/views/ContactSection";
 import { getPayload } from "payload";
+import { unstable_cache } from "next/cache";
 import config from "@/payload.config";
 import { draftMode } from "next/headers";
 import {
@@ -67,7 +68,37 @@ export default async function Home() {
   const { isEnabled: isDraftMode } = await draftMode();
 
   try {
-    const payload = await getPayload({ config });
+    const fetchCmsData = isDraftMode
+      ? async () => {
+          const payload = await getPayload({ config });
+          return Promise.all([
+            payload.findGlobal({ slug: "hero-section", draft: true }),
+            payload.findGlobal({ slug: "about-section", draft: true }),
+            payload.findGlobal({ slug: "process-section", draft: true }),
+            payload.findGlobal({ slug: "projects-section", draft: true }),
+            payload.findGlobal({ slug: "contact-section", draft: true }),
+            payload.findGlobal({ slug: "company-info", draft: true }),
+            payload.find({ collection: "services", draft: true }),
+            payload.find({ collection: "projects", where: { featured: { equals: true } }, limit: 6, draft: true }),
+          ]);
+        }
+      : unstable_cache(
+          async () => {
+            const payload = await getPayload({ config });
+            return Promise.all([
+              payload.findGlobal({ slug: "hero-section" }),
+              payload.findGlobal({ slug: "about-section" }),
+              payload.findGlobal({ slug: "process-section" }),
+              payload.findGlobal({ slug: "projects-section" }),
+              payload.findGlobal({ slug: "contact-section" }),
+              payload.findGlobal({ slug: "company-info" }),
+              payload.find({ collection: "services" }),
+              payload.find({ collection: "projects", where: { featured: { equals: true } }, limit: 6 }),
+            ]);
+          },
+          ["homepage-cms-data"],
+          { revalidate: 3600, tags: ["homepage"] }
+        );
 
     // Fetch all CMS data in parallel for better performance
     const [
@@ -79,21 +110,7 @@ export default async function Home() {
       _companyInfo,
       _services,
       _projects,
-    ] = await Promise.all([
-      payload.findGlobal({ slug: "hero-section", draft: isDraftMode }),
-      payload.findGlobal({ slug: "about-section", draft: isDraftMode }),
-      payload.findGlobal({ slug: "process-section", draft: isDraftMode }),
-      payload.findGlobal({ slug: "projects-section", draft: isDraftMode }),
-      payload.findGlobal({ slug: "contact-section", draft: isDraftMode }),
-      payload.findGlobal({ slug: "company-info", draft: isDraftMode }),
-      payload.find({ collection: "services", draft: isDraftMode }),
-      payload.find({
-        collection: "projects",
-        where: { featured: { equals: true } },
-        limit: 6,
-        draft: isDraftMode,
-      }),
-    ]);
+    ] = await fetchCmsData();
 
     heroData = mapHeroSection(_hero);
     aboutData = mapAboutSection(_about);
@@ -118,7 +135,7 @@ export default async function Home() {
         primaryCTA={heroData.primaryCTA}
         secondaryCTA={heroData.secondaryCTA}
         backgroundImage={heroData.backgroundImage}
-        backgroundVideo={heroData.backgroundVideo || "/hero-bg-video.webm"}
+        backgroundVideo={heroData.backgroundVideo}
         overlay={heroData.overlay}
         overlayOpacity={heroData.overlayOpacity}
         scrollIndicator={heroData.scrollIndicator}

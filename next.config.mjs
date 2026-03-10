@@ -26,10 +26,12 @@ const nextConfig = {
       },
     ],
     dangerouslyAllowSVG: true,
+    deviceSizes: [640, 768, 1024, 1280, 1920],
+    imageSizes: [64, 128, 256, 384, 512],
   },
   compress: true,
   experimental: {
-    optimizePackageImports: ['payload', '@payloadcms/next'],
+    optimizePackageImports: ['payload', '@payloadcms/next', '@react-three/drei'],
   },
 }
 

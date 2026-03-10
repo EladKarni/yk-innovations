@@ -1,7 +1,7 @@
 "use client";
 
 import { Suspense, useRef, useMemo } from "react";
-import { Canvas, useFrame, useThree } from "@react-three/fiber";
+import { Canvas, useThree } from "@react-three/fiber";
 import { OrbitControls, Environment, Html, useFBX } from "@react-three/drei";
 import { Box3, Vector3 } from "three";
 
@@ -34,9 +34,6 @@ function FBXScene({ url }: { url: string }) {
     (camera as any).updateProjectionMatrix?.();
   }, [fbx, camera]);
 
-  // Keep render loop alive so autoRotate never pauses
-  useFrame(() => {});
-
   return <primitive object={fbx} />;
 }
 
@@ -57,7 +54,7 @@ export default function ProjectModel3D({ url, onError }: ProjectModel3DProps) {
       onPointerUp={() => { isPointerDown.current = false; }}
       onClick={(e) => { if (hasDragged.current) { e.preventDefault(); e.stopPropagation(); } }}
     >
-      <Canvas frameloop="always" camera={{ position: [0, 0, 5], fov: 50 }} onCreated={({ gl }) => { if (!gl) onError?.(); }}>
+      <Canvas frameloop="demand" camera={{ position: [0, 0, 5], fov: 50 }} onCreated={({ gl }) => { if (!gl) onError?.(); }}>
         <ambientLight intensity={0.8} />
         <directionalLight position={[5, 5, 5]} intensity={1.5} />
         <directionalLight position={[-5, -5, -5]} intensity={0.3} />

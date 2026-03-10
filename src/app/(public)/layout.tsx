@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import { getPayload } from "payload";
+import { unstable_cache } from "next/cache";
 import config from "@/payload.config";
 import { draftMode } from "next/headers";
 
@@ -53,11 +54,26 @@ export default async function PublicLayout({
   const { isEnabled: isDraftMode } = await draftMode();
 
   try {
-    const payload = await getPayload({ config });
-    [footerData, companyInfo] = await Promise.all([
-      payload.findGlobal({ slug: "footer-section", draft: isDraftMode }),
-      payload.findGlobal({ slug: "company-info", draft: isDraftMode }),
-    ]);
+    const fetchLayoutData = isDraftMode
+      ? async () => {
+          const payload = await getPayload({ config });
+          return Promise.all([
+            payload.findGlobal({ slug: "footer-section", draft: true }),
+            payload.findGlobal({ slug: "company-info", draft: true }),
+          ]);
+        }
+      : unstable_cache(
+          async () => {
+            const payload = await getPayload({ config });
+            return Promise.all([
+              payload.findGlobal({ slug: "footer-section" }),
+              payload.findGlobal({ slug: "company-info" }),
+            ]);
+          },
+          ["layout-cms-data"],
+          { revalidate: 3600, tags: ["homepage"] }
+        );
+    [footerData, companyInfo] = await fetchLayoutData();
   } catch (error) {
     console.warn("Failed to fetch footer data from CMS:", error);
   }

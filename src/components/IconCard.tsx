@@ -1,6 +1,6 @@
 import { FC } from "react";
 import clsx from "clsx";
-import { getIconByName } from "./icons";
+import { getIconByName } from "./icons/getIconByName";
 import type { IconCardProps } from "@/types";
 
 const IconCard: FC<IconCardProps> = ({
