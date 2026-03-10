@@ -72,7 +72,7 @@ export default buildConfig({
     push: false, // Disable automatic schema sync - use migrations instead
     migrationDir: path.resolve(dirname, './migrations'),
   }),
-  serverURL: process.env.NEXT_PUBLIC_SERVER_URL || "http://localhost:3000",
+  serverURL: (process.env.NEXT_PUBLIC_SERVER_URL || "http://localhost:3000").replace(/\/$/, ""),
   sharp,
   plugins: [
     vercelBlobStorage({
