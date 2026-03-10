@@ -28,10 +28,10 @@ const Hero: FC<HeroProps> = ({
           loop
           muted
           playsInline
-          preload="none"
+          preload="metadata"
           className="absolute inset-0 w-full h-full object-center object-cover"
         >
-          <source src="/hero-bg-video.webm" type="video/webm" />
+          <source src={backgroundVideo} type="video/webm" />
         </video>
       )}
 

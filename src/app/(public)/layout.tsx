@@ -80,9 +80,7 @@ export default async function PublicLayout({
 
   return (
     <html lang="en" suppressHydrationWarning className="scroll-smooth">
-      <head>
-        <link rel="preconnect" href="https://app.netlify.com" />
-      </head>
+      <head />
       <body className={cn(inter.className, "h-full")}>
         <ThemeProvider>
           <Navbar>

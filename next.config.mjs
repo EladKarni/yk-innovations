@@ -22,7 +22,7 @@ const nextConfig = {
       },
       {
         protocol: 'https',
-        hostname: 'netlify.app',
+        hostname: '*.netlify.app',
       },
     ],
     dangerouslyAllowSVG: true,
