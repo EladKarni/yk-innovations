@@ -9,6 +9,21 @@ export const Media: CollectionConfig = {
     delete: ({ req: { user } }) => !!user,
   },
   hooks: {
+    beforeOperation: [
+      ({ args, operation }) => {
+        if (operation !== 'create' && operation !== 'update') return
+        const file = args.req?.file
+        if (!file) return
+        // Allow binary/unknown MIME types only for .fbx files
+        const binaryMimeTypes = ['application/octet-stream', 'application/x.autodesk.fbx']
+        if (binaryMimeTypes.includes(file.mimetype)) {
+          const name: string = (file.name || '').toLowerCase()
+          if (!name.endsWith('.fbx')) {
+            throw new Error('Only image, video, and .fbx files are accepted.')
+          }
+        }
+      },
+    ],
     beforeDelete: [
       async ({ req, id }) => {
         console.log(`Attempting to delete media with ID: ${id}`)
@@ -70,6 +85,6 @@ export const Media: CollectionConfig = {
       },
     ],
     adminThumbnail: 'thumbnail',
-    mimeTypes: ['image/*', 'video/mp4', 'video/webm'],
+    mimeTypes: ['image/*', 'video/mp4', 'video/webm', 'application/octet-stream', 'application/x.autodesk.fbx'],
   },
 }

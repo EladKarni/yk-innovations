@@ -126,6 +126,15 @@ export const Projects: CollectionConfig = {
       required: true,
     },
     {
+      name: "model3d",
+      type: "upload",
+      relationTo: "media",
+      required: false,
+      admin: {
+        description: "Optional .fbx 3D model. If provided, the project card shows an interactive 3D viewer instead of the hero image. FBX files include geometry, materials, and textures in one file.",
+      },
+    },
+    {
       name: "gallery",
       type: "array",
       label: "Image Gallery",

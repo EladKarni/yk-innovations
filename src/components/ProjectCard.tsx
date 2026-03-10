@@ -1,3 +1,5 @@
+"use client";
+
 import { FC } from "react";
 import Link from "next/link";
 import Image from "next/image";
@@ -26,7 +28,7 @@ const ProjectCard: FC<ProjectCardProps> = ({
           featured && "md:col-span-2 md:row-span-2"
         )}
       >
-        {/* Image Container */}
+        {/* Media Container */}
         <div className="relative h-48 md:h-64 overflow-hidden bg-base-300">
           <Image
             src={image}
@@ -36,7 +38,7 @@ const ProjectCard: FC<ProjectCardProps> = ({
             sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
           />
           {category && (
-            <div className="absolute top-4 left-4 bg-primary text-primary-content px-3 py-1 rounded-full text-xs font-semibold uppercase tracking-wider">
+            <div className="absolute top-4 left-4 z-10 bg-primary text-primary-content px-3 py-1 rounded-full text-xs font-semibold uppercase tracking-wider">
               {category}
             </div>
           )}

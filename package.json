@@ -17,6 +17,8 @@
     "@payloadcms/richtext-lexical": "3.63.0",
     "@payloadcms/storage-vercel-blob": "3.63.0",
     "@playwright/test": "^1.57.0",
+    "@react-three/drei": "^10.7.7",
+    "@react-three/fiber": "^9.5.0",
     "clsx": "^2.1.1",
     "daisyui": "^4.11.1",
     "graphql": "16.9.0",
@@ -28,12 +30,14 @@
     "react-use": "^17.5.1",
     "resend": "^6.5.2",
     "sharp": "0.34.5",
-    "tailwind-merge": "^2.5.4"
+    "tailwind-merge": "^2.5.4",
+    "three": "^0.183.2"
   },
   "devDependencies": {
     "@types/node": "^20",
     "@types/react": "19.1.8",
     "@types/react-dom": "19.1.6",
+    "@types/three": "^0.183.1",
     "eslint": "^8",
     "eslint-config-next": "15.3.4",
     "postcss": "^8",
