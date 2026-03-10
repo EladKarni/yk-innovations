@@ -2,6 +2,16 @@ import { withPayload } from '@payloadcms/next/withPayload'
 
 /** @type {import('next').NextConfig} */
 const nextConfig = {
+  async headers() {
+    return [
+      {
+        source: '/api/media/file/:path*',
+        headers: [
+          { key: 'Access-Control-Allow-Origin', value: '*' },
+        ],
+      },
+    ]
+  },
   images: {
     remotePatterns: [
       {
@@ -16,12 +26,22 @@ const nextConfig = {
         protocol: 'http',
         hostname: 'localhost',
       },
+      {
+        protocol: 'https',
+        hostname: 'ykinnovations.com',
+      },
+      {
+        protocol: 'https',
+        hostname: '*.netlify.app',
+      },
     ],
     dangerouslyAllowSVG: true,
+    deviceSizes: [640, 768, 1024, 1280, 1920],
+    imageSizes: [64, 128, 256, 384, 512],
   },
   compress: true,
   experimental: {
-    optimizePackageImports: ['payload', '@payloadcms/next'],
+    optimizePackageImports: ['payload', '@payloadcms/next', '@react-three/drei'],
   },
 }
 

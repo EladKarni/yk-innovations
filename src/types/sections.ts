@@ -64,7 +64,6 @@ export interface AboutSectionData {
   subtitle?: string;
   description: string;
   image?: any;
-  imageAlt?: string;
   stats?: Array<{
     value: string;
     label: string;

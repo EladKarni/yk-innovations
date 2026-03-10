@@ -1,4 +1,5 @@
 import type { GlobalConfig } from "payload";
+import { revalidateHomepage } from "@/lib/revalidateHook";
 
 export const HeroSection: GlobalConfig = {
   slug: "hero-section",
@@ -8,13 +9,16 @@ export const HeroSection: GlobalConfig = {
     livePreview: {
       url: () => {
         const baseUrl = process.env.NEXT_PUBLIC_SERVER_URL || 'http://localhost:3000'
-        return `${baseUrl}/api/preview?url=/&secret=${process.env.PAYLOAD_SECRET}`
+        return `${baseUrl}/api/preview?url=/&secret=${process.env.PREVIEW_SECRET}`
       },
     },
   },
   access: {
     read: () => true,
     update: ({ req: { user } }) => !!user,
+  },
+  hooks: {
+    afterChange: [revalidateHomepage],
   },
   fields: [
     {

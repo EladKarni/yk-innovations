@@ -2,7 +2,7 @@ import { FC } from "react";
 import SectionContainer from "@/ui/SectionContainer";
 import IconCard from "@/components/IconCard";
 import SectionHeader from "@/components/SectionHeader";
-import { getIconByName } from "@/components/icons";
+import { getIconByName } from "@/components/icons/getIconByName";
 import type { ProcessSectionProps } from "@/types";
 
 const ProcessSection: FC<ProcessSectionProps> = ({ data }) => {

@@ -1,4 +1,5 @@
 import type { GlobalConfig } from "payload";
+import { revalidateHomepage } from "@/lib/revalidateHook";
 
 export const AboutSection: GlobalConfig = {
   slug: "about-section",
@@ -9,13 +10,16 @@ export const AboutSection: GlobalConfig = {
       url: () => {
         const baseUrl =
           process.env.NEXT_PUBLIC_SERVER_URL || "http://localhost:3000";
-        return `${baseUrl}/api/preview?url=/&secret=${process.env.PAYLOAD_SECRET}`;
+        return `${baseUrl}/api/preview?url=/&secret=${process.env.PREVIEW_SECRET}`;
       },
     },
   },
   access: {
     read: () => true,
     update: ({ req: { user } }) => !!user,
+  },
+  hooks: {
+    afterChange: [revalidateHomepage],
   },
   fields: [
     {
@@ -57,15 +61,6 @@ export const AboutSection: GlobalConfig = {
       required: false,
       admin: {
         description: "Image displayed in the about section",
-      },
-    },
-    {
-      name: "imageAlt",
-      type: "text",
-      label: "Image Alt Text",
-      required: false,
-      admin: {
-        description: "Alternative text for the image (for accessibility)",
       },
     },
     {

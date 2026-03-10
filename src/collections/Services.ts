@@ -1,4 +1,5 @@
 import type { CollectionConfig } from 'payload'
+import { revalidateHomepage } from '@/lib/revalidateHook'
 
 export const Services: CollectionConfig = {
   slug: 'services',
@@ -11,6 +12,9 @@ export const Services: CollectionConfig = {
     create: ({ req: { user } }) => !!user,
     update: ({ req: { user } }) => !!user,
     delete: ({ req: { user } }) => !!user,
+  },
+  hooks: {
+    afterChange: [revalidateHomepage],
   },
   fields: [
     {

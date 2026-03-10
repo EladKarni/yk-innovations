@@ -10,22 +10,15 @@ const AboutSection: FC<AboutSectionProps> = ({ data }) => {
     subtitle,
     description,
     image,
-    imageAlt,
     stats,
     cta,
     imagePosition = "right",
   } = data;
 
-  // Extract image URL if it's a Media object
-  const imageUrl =
-    typeof image === "object" && image !== null
-      ? (image as any).url || "https://picsum.photos/800/600?random=2"
-      : image || "https://picsum.photos/800/600?random=2";
-
-  // Use default alt text if imageAlt is empty or undefined
-  const altText = imageAlt && imageAlt.trim() !== ""
-    ? imageAlt
-    : "YK Innovations mechanical engineering and prototyping workspace";
+  // Extract image URL and alt from populated Media object
+  const imageObj = typeof image === "object" && image !== null ? (image as any) : null;
+  const imageUrl = imageObj?.url || "https://picsum.photos/800/600?random=2";
+  const altText = imageObj?.alt || "YK Innovations mechanical engineering and prototyping workspace";
 
   return (
     <SectionContainer sectionName="about" background="base">

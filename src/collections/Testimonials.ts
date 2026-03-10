@@ -1,4 +1,5 @@
 import type { CollectionConfig } from 'payload'
+import { revalidateHomepage } from '@/lib/revalidateHook'
 
 export const Testimonials: CollectionConfig = {
   slug: 'testimonials',
@@ -11,6 +12,9 @@ export const Testimonials: CollectionConfig = {
     create: ({ req: { user } }) => !!user,
     update: ({ req: { user } }) => !!user,
     delete: ({ req: { user } }) => !!user,
+  },
+  hooks: {
+    afterChange: [revalidateHomepage],
   },
   fields: [
     {

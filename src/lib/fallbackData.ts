@@ -1,4 +1,6 @@
 // Fallback data for when CMS is unavailable (e.g., during build without database)
+import type { ContactData, CompanyInfo } from "@/types";
+import type { Project } from "@/types/sections";
 
 export const fallbackHeroData = {
   title: "Engineering Excellence",
@@ -116,15 +118,14 @@ export const fallbackServices = [
   },
 ];
 
-export const fallbackProjects = [
+export const fallbackProjects: Project[] = [
   {
     title: "Smart Kitchen Appliance",
     description:
       "A compact, IoT-enabled kitchen appliance designed for modern consumers.",
     slug: "smart-kitchen-appliance",
-    image: "https://picsum.photos/1200/800?random=3",
     category: "Consumer Product",
-    technologies: ["SolidWorks", "FEA Analysis", "3D Printing"],
+    technologies: [{ technology: "SolidWorks" }, { technology: "FEA Analysis" }, { technology: "3D Printing" }],
     featured: true,
   },
   {
@@ -132,9 +133,8 @@ export const fallbackProjects = [
     description:
       "FDA-compliant prototype for a novel medical diagnostic device.",
     slug: "medical-device",
-    image: "https://picsum.photos/1200/800?random=4",
     category: "Medical",
-    technologies: ["Biocompatible Materials", "CNC Machining"],
+    technologies: [{ technology: "Biocompatible Materials" }, { technology: "CNC Machining" }],
     featured: true,
   },
   {
@@ -142,12 +142,15 @@ export const fallbackProjects = [
     description:
       "Custom-designed component for manufacturing automation system.",
     slug: "industrial-automation",
-    image: "https://picsum.photos/1200/800?random=5",
     category: "Industrial",
-    technologies: ["SolidWorks", "Metal 3D Printing"],
+    technologies: [{ technology: "SolidWorks" }, { technology: "Metal 3D Printing" }],
     featured: true,
   },
 ];
+
+export const fallbackContactData: ContactData = {};
+export const fallbackCompanyInfo: CompanyInfo = {};
+export const fallbackProjectsSection: { title?: string } = { title: "Featured Developments" };
 
 export const fallbackTestimonials = [
   {
